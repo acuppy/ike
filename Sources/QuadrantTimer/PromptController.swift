@@ -31,7 +31,7 @@ final class PromptController {
             backing: .buffered,
             defer: false
         )
-        panel.title = "Quadrant Timer"
+        panel.title = "Ike"
         panel.contentViewController = host
         panel.isFloatingPanel = true
         panel.level = .floating
