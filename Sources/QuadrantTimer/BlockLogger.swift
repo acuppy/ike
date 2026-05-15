@@ -49,6 +49,33 @@ final class BlockLogger: @unchecked Sendable {
         }
     }
 
+    func update(_ entry: BlockEntry, identifiedBy start: Date) {
+        queue.async { [fileURL, encoder] in
+            do {
+                guard let data = try? Data(contentsOf: fileURL),
+                      let text = String(data: data, encoding: .utf8) else { return }
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                var output = Data()
+                for line in text.split(separator: "\n", omittingEmptySubsequences: true) {
+                    if let lineData = line.data(using: .utf8),
+                       let parsed = try? decoder.decode(BlockEntry.self, from: lineData),
+                       parsed.start == start {
+                        var newData = try encoder.encode(entry)
+                        newData.append(0x0A)
+                        output.append(newData)
+                    } else if let lineData = line.data(using: .utf8) {
+                        output.append(lineData)
+                        output.append(0x0A)
+                    }
+                }
+                try output.write(to: fileURL, options: .atomic)
+            } catch {
+                NSLog("BlockLogger update failed: \(error)")
+            }
+        }
+    }
+
     func todayEntries() -> [BlockEntry] {
         guard let data = try? Data(contentsOf: fileURL),
               let text = String(data: data, encoding: .utf8) else { return [] }

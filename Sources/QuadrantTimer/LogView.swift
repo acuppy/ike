@@ -60,6 +60,21 @@ final class LogViewModel {
     func reload() {
         entries = BlockLogger.shared.todayEntries()
     }
+
+    func updateEntry(originalStart: Date, quadrant: Quadrant, note: String) {
+        guard let idx = entries.firstIndex(where: { $0.start == originalStart }) else { return }
+        let original = entries[idx]
+        let updated = BlockEntry(
+            start: original.start,
+            end: original.end,
+            quadrant: quadrant,
+            note: note,
+            auto: original.auto
+        )
+        entries[idx] = updated
+        BlockLogger.shared.update(updated, identifiedBy: originalStart)
+        selectedEntry = nil
+    }
 }
 
 struct LogView: View {
@@ -169,15 +184,23 @@ struct LogView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     ForEach(viewModel.entries.reversed(), id: \.start) { entry in
-                        EntryRow(entry: entry, isSelected: viewModel.selectedEntry?.start == entry.start)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                if viewModel.selectedEntry?.start == entry.start {
-                                    viewModel.selectedEntry = nil
-                                } else {
-                                    viewModel.selectedEntry = entry
+                        let isSelected = viewModel.selectedEntry?.start == entry.start
+                        VStack(spacing: 0) {
+                            EntryRow(entry: entry, isSelected: isSelected)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    viewModel.selectedEntry = isSelected ? nil : entry
                                 }
+                            if isSelected {
+                                EditPanel(
+                                    entry: entry,
+                                    onSave: { quadrant, note in
+                                        viewModel.updateEntry(originalStart: entry.start, quadrant: quadrant, note: note)
+                                    },
+                                    onCancel: { viewModel.selectedEntry = nil }
+                                )
                             }
+                        }
                         Divider().padding(.leading, 12)
                     }
                 }
@@ -227,6 +250,58 @@ struct LogView: View {
         let m = (total % 3600) / 60
         if h > 0 { return "\(h)h \(m)m" }
         return "\(m)m"
+    }
+}
+
+private struct EditPanel: View {
+    let entry: BlockEntry
+    let onSave: (Quadrant, String) -> Void
+    let onCancel: () -> Void
+
+    @State private var quadrant: Quadrant
+    @State private var note: String
+    @FocusState private var noteFocused: Bool
+
+    init(entry: BlockEntry, onSave: @escaping (Quadrant, String) -> Void, onCancel: @escaping () -> Void) {
+        self.entry = entry
+        self.onSave = onSave
+        self.onCancel = onCancel
+        self._quadrant = State(initialValue: entry.quadrant)
+        self._note = State(initialValue: entry.note)
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Picker("", selection: $quadrant) {
+                    ForEach(Quadrant.allCases) { q in
+                        Text(q.label).tag(q)
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .fixedSize()
+
+                TextField("Description", text: $note)
+                    .textFieldStyle(.roundedBorder)
+                    .focused($noteFocused)
+                    .onSubmit { onSave(quadrant, note) }
+            }
+            HStack {
+                Text("⏎ save · ⎋ cancel")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                Spacer()
+                Button("Cancel", action: onCancel)
+                    .keyboardShortcut(.cancelAction)
+                Button("Save") { onSave(quadrant, note) }
+                    .keyboardShortcut(.defaultAction)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(Color.accentColor.opacity(0.08))
+        .onAppear { noteFocused = true }
     }
 }
 
