@@ -16,6 +16,7 @@ extension Quadrant {
 @Observable
 final class LogViewModel {
     var entries: [BlockEntry] = []
+    var selectedEntry: BlockEntry? = nil
 
     func reload() {
         entries = BlockLogger.shared.todayEntries()
@@ -32,6 +33,7 @@ struct LogView: View {
                 emptyState
             } else {
                 timeline
+                entryList
                 summary
             }
         }
@@ -96,6 +98,30 @@ struct LogView: View {
         }
     }
 
+    private var entryList: some View {
+        VStack(spacing: 0) {
+            Divider()
+            ScrollView {
+                VStack(spacing: 0) {
+                    ForEach(viewModel.entries, id: \.start) { entry in
+                        EntryRow(entry: entry, isSelected: viewModel.selectedEntry?.start == entry.start)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                if viewModel.selectedEntry?.start == entry.start {
+                                    viewModel.selectedEntry = nil
+                                } else {
+                                    viewModel.selectedEntry = entry
+                                }
+                            }
+                        Divider().padding(.leading, 12)
+                    }
+                }
+            }
+            .frame(maxHeight: 240)
+            Divider()
+        }
+    }
+
     private var summary: some View {
         VStack(spacing: 8) {
             ForEach(Quadrant.allCases) { q in
@@ -134,9 +160,58 @@ struct LogView: View {
         let total = Int(seconds.rounded())
         let h = total / 3600
         let m = (total % 3600) / 60
-        if h > 0 {
-            return "\(h)h \(m)m"
+        if h > 0 { return "\(h)h \(m)m" }
+        return "\(m)m"
+    }
+}
+
+private struct EntryRow: View {
+    let entry: BlockEntry
+    let isSelected: Bool
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Text(timeRange)
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(.secondary)
+                .frame(width: 96, alignment: .leading)
+
+            Circle()
+                .fill(entry.quadrant.color)
+                .frame(width: 8, height: 8)
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(entry.quadrant.label)
+                    .font(.subheadline)
+                if !entry.note.isEmpty {
+                    Text(entry.note)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                }
+            }
+
+            Spacer()
+
+            Text(duration)
+                .font(.caption.monospacedDigit())
+                .foregroundStyle(.secondary)
         }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(isSelected ? Color.accentColor.opacity(0.1) : Color.clear)
+    }
+
+    private var timeRange: String {
+        let fmt = Date.FormatStyle().hour(.defaultDigits(amPM: .omitted)).minute(.twoDigits)
+        return "\(entry.start.formatted(fmt)) – \(entry.end.formatted(fmt))"
+    }
+
+    private var duration: String {
+        let secs = Int(entry.end.timeIntervalSince(entry.start).rounded())
+        let h = secs / 3600
+        let m = (secs % 3600) / 60
+        if h > 0 { return "\(h)h \(m)m" }
         return "\(m)m"
     }
 }
