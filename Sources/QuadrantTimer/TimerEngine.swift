@@ -4,9 +4,9 @@ import Observation
 @Observable
 @MainActor
 final class TimerEngine {
-    static let blockDuration: TimeInterval = 15 * 60
+    var blockDurationProvider: () -> TimeInterval = { 15 * 60 }
 
-    private(set) var remaining: TimeInterval = TimerEngine.blockDuration
+    private(set) var remaining: TimeInterval = 15 * 60
     private(set) var blockStartedAt: Date = Date()
     private(set) var isPaused: Bool = false
 
@@ -14,10 +14,12 @@ final class TimerEngine {
 
     private var timer: Timer?
 
+    var blockDuration: TimeInterval { blockDurationProvider() }
+
     func start() {
         guard timer == nil else { return }
         blockStartedAt = Date()
-        remaining = Self.blockDuration
+        remaining = blockDuration
         scheduleTimer()
     }
 
@@ -31,7 +33,7 @@ final class TimerEngine {
 
     func resetBlock() {
         blockStartedAt = Date()
-        remaining = Self.blockDuration
+        remaining = blockDuration
         isPaused = false
         if timer == nil { scheduleTimer() }
     }

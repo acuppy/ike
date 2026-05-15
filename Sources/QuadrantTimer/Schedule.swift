@@ -45,6 +45,8 @@ final class ScheduleSettings {
     var workOverrideUntil: Date?
     var endDayUntil: Date?
 
+    var blockDurationMinutes: Int = 15
+
     private let storageKey = "QuadrantTimer.schedule.v1"
 
     init() {
@@ -54,7 +56,8 @@ final class ScheduleSettings {
     func save() {
         let snapshot = Snapshot(
             monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday,
-            friday: friday, saturday: saturday, sunday: sunday
+            friday: friday, saturday: saturday, sunday: sunday,
+            blockDurationMinutes: blockDurationMinutes
         )
         if let data = try? JSONEncoder().encode(snapshot) {
             UserDefaults.standard.set(data, forKey: storageKey)
@@ -71,6 +74,7 @@ final class ScheduleSettings {
         friday = snap.friday
         saturday = snap.saturday
         sunday = snap.sunday
+        blockDurationMinutes = snap.blockDurationMinutes ?? 15
     }
 
     func schedule(for weekday: Weekday) -> DaySchedule {
@@ -132,5 +136,6 @@ final class ScheduleSettings {
         var friday: DaySchedule
         var saturday: DaySchedule
         var sunday: DaySchedule
+        var blockDurationMinutes: Int?
     }
 }

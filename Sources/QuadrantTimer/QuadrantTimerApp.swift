@@ -74,6 +74,10 @@ final class AppCoordinator {
     init() {
         scheduleMonitor = ScheduleMonitor(settings: scheduleSettings)
 
+        timer.blockDurationProvider = { [scheduleSettings] in
+            TimeInterval(max(1, scheduleSettings.blockDurationMinutes) * 60)
+        }
+
         timer.onBlockComplete = { [weak self] start, end in
             self?.handleBlockComplete(start: start, end: end)
         }

@@ -4,8 +4,30 @@ struct PreferencesView: View {
     @Bindable var settings: ScheduleSettings
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Timer")
+                    .font(.title3.bold())
+                HStack {
+                    Text("Block duration")
+                    Spacer()
+                    Stepper(value: Binding(
+                        get: { settings.blockDurationMinutes },
+                        set: { settings.blockDurationMinutes = $0; settings.save() }
+                    ), in: 1...120) {
+                        Text("\(settings.blockDurationMinutes) min")
+                            .monospacedDigit()
+                            .frame(width: 60, alignment: .trailing)
+                    }
+                }
+                Text("How long each tracked block runs before the prompt fires. Changes apply on the next block.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Divider()
+
+            VStack(alignment: .leading, spacing: 8) {
                 Text("Working Hours")
                     .font(.title3.bold())
                 Text("Outside these hours, the timer pauses and prompts are suppressed.")
