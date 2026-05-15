@@ -20,7 +20,6 @@ final class BreakPromptController {
         )
 
         let host = NSHostingController(rootView: view)
-        host.sizingOptions = [.preferredContentSize]
 
         let panel = NSPanel(
             contentRect: NSRect(x: 0, y: 0, width: 380, height: 160),
@@ -35,10 +34,10 @@ final class BreakPromptController {
         panel.hidesOnDeactivate = false
         panel.becomesKeyOnlyIfNeeded = false
         panel.isReleasedWhenClosed = false
-        panel.center()
 
         NSApp.activate(ignoringOtherApps: true)
         panel.makeKeyAndOrderFront(nil)
+        panel.center()
         self.panel = panel
     }
 
