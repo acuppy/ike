@@ -128,11 +128,17 @@ final class AppCoordinator {
     }
 
     func showLogWindow() {
-        logWindow.present(viewModel: logViewModel)
+        weeklyWindow.dismiss()
+        logWindow.present(viewModel: logViewModel, anchor: statusBarRect())
     }
 
     func showWeeklyWindow() {
-        weeklyWindow.show()
+        logWindow.dismiss()
+        weeklyWindow.show(anchor: statusBarRect())
+    }
+
+    private func statusBarRect() -> NSRect? {
+        NSApp.windows.first { NSStringFromClass(type(of: $0)) == "NSStatusBarWindow" }?.frame
     }
 
     func showPreferences() {

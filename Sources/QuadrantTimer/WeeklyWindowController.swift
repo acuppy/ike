@@ -11,16 +11,29 @@ class WeeklyWindowController: NSWindowController {
         window.title = "Weekly Trends"
         window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
         window.isReleasedWhenClosed = false
-        window.setFrameAutosaveName("QuadrantTimer.weekly")
         super.init(window: window)
         window.center()
     }
 
     required init?(coder: NSCoder) { fatalError() }
 
-    func show() {
+    func dismiss() {
+        window?.orderOut(nil)
+    }
+
+    func show(anchor: NSRect? = nil) {
         viewModel.reload()
+        NSApp.activate(ignoringOtherApps: true)
         showWindow(nil)
         window?.makeKeyAndOrderFront(nil)
+        if let anchor, let screen = NSScreen.main, let window {
+            let w = window.frame.width
+            let h = window.frame.height
+            let rawX = anchor.midX - w / 2
+            let x = rawX < screen.frame.minX ? screen.frame.minX
+                  : rawX > screen.frame.maxX - w ? screen.frame.maxX - w
+                  : rawX
+            window.setFrameOrigin(NSPoint(x: x, y: anchor.minY - h))
+        }
     }
 }
