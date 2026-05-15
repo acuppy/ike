@@ -6,35 +6,58 @@ final class LogWindowController {
     private var window: NSWindow?
     private var delegate: WindowDelegate?
 
-    func present(viewModel: LogViewModel) {
+    func present(viewModel: LogViewModel, anchor: NSRect? = nil) {
         viewModel.reload()
 
         if let window {
             NSApp.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
+            position(window, anchor: anchor)
             return
         }
 
         let host = NSHostingController(rootView: LogView(viewModel: viewModel))
-        host.sizingOptions = [.preferredContentSize]
 
-        let window = NSWindow(contentViewController: host)
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 520, height: 640),
+            styleMask: [.titled, .closable, .miniaturizable],
+            backing: .buffered,
+            defer: true
+        )
         window.title = "Today's Log"
-        window.styleMask = [.titled, .closable, .miniaturizable]
         window.isReleasedWhenClosed = false
-        window.center()
+        window.contentViewController = host
 
         let delegate = WindowDelegate { [weak self] in
             self?.window = nil
             self?.delegate = nil
         }
         window.delegate = delegate
+        self.window = window
+        self.delegate = delegate
 
         NSApp.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
+        position(window, anchor: anchor)
+    }
 
-        self.window = window
-        self.delegate = delegate
+    func dismiss() {
+        window?.orderOut(nil)
+    }
+
+    private func position(_ window: NSWindow, anchor: NSRect?) {
+        guard let anchor, let screen = NSScreen.main else {
+            window.center()
+            return
+        }
+        let w = window.frame.width
+        let h = window.frame.height
+        let rawX = anchor.midX - w / 2
+        let x = rawX < screen.frame.minX ? screen.frame.minX
+              : rawX > screen.frame.maxX - w ? screen.frame.maxX - w
+              : rawX
+        let y = anchor.minY - h
+        window.setFrameOrigin(NSPoint(x: x, y: y))
     }
 }
 
