@@ -2,9 +2,26 @@ import SwiftUI
 
 struct PreferencesView: View {
     @Bindable var settings: ScheduleSettings
+    @Bindable var loginItem: LoginItem
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Startup")
+                    .font(.title3.bold())
+                Toggle("Launch Ike at login", isOn: Binding(
+                    get: { loginItem.isEnabled },
+                    set: { loginItem.setEnabled($0) }
+                ))
+                .toggleStyle(.switch)
+                .controlSize(.small)
+                Text("Ike will start automatically when you log in to your Mac.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Divider()
+
             VStack(alignment: .leading, spacing: 8) {
                 Text("Timer")
                     .font(.title3.bold())

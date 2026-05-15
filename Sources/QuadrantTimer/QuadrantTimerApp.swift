@@ -71,6 +71,7 @@ final class AppCoordinator {
     let preferencesWindow = PreferencesWindowController()
     let breakState = BreakState()
     let breakPrompt = BreakPromptController()
+    let loginItem = LoginItem()
 
     init() {
         scheduleMonitor = ScheduleMonitor(settings: scheduleSettings)
@@ -142,7 +143,7 @@ final class AppCoordinator {
     }
 
     func showPreferences() {
-        preferencesWindow.present(settings: scheduleSettings)
+        preferencesWindow.present(settings: scheduleSettings, loginItem: loginItem)
     }
 
     func toggleWorkOverride() {
