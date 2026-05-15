@@ -65,6 +65,7 @@ final class AppCoordinator {
     let logger = BlockLogger.shared
     let logViewModel = LogViewModel()
     let logWindow = LogWindowController()
+    let weeklyWindow = WeeklyWindowController()
     let scheduleSettings = ScheduleSettings()
     let scheduleMonitor: ScheduleMonitor
     let preferencesWindow = PreferencesWindowController()
@@ -128,6 +129,10 @@ final class AppCoordinator {
 
     func showLogWindow() {
         logWindow.present(viewModel: logViewModel)
+    }
+
+    func showWeeklyWindow() {
+        weeklyWindow.show()
     }
 
     func showPreferences() {
@@ -318,6 +323,15 @@ struct MenuView: View {
                 Text("View today's log…")
             } icon: {
                 Image(systemName: "chart.bar.xaxis")
+            }
+        }
+        Button {
+            coordinator.showWeeklyWindow()
+        } label: {
+            Label {
+                Text("View weekly trends…")
+            } icon: {
+                Image(systemName: "chart.bar")
             }
         }
         Button("Reveal log in Finder…") {

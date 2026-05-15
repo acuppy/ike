@@ -68,4 +68,25 @@ final class BlockLogger: @unchecked Sendable {
         entries.sort { $0.start < $1.start }
         return entries
     }
+
+    func weekEntries() -> [BlockEntry] {
+        guard let data = try? Data(contentsOf: fileURL),
+              let text = String(data: data, encoding: .utf8) else { return [] }
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: Date())
+        guard let sevenDaysAgo = cal.date(byAdding: .day, value: -6, to: today),
+              let tomorrow = cal.date(byAdding: .day, value: 1, to: today) else { return [] }
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        var entries: [BlockEntry] = []
+        for line in text.split(separator: "\n") {
+            guard let lineData = line.data(using: .utf8),
+                  let entry = try? decoder.decode(BlockEntry.self, from: lineData) else { continue }
+            if entry.start >= sevenDaysAgo && entry.start < tomorrow {
+                entries.append(entry)
+            }
+        }
+        entries.sort { $0.start < $1.start }
+        return entries
+    }
 }
