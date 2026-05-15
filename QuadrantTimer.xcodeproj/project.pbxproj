@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		09AEA4BC12A637FF0D262690 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577E3807549970C95AFE1E5 /* Shortcuts.swift */; };
+		2633B01DDE71D18A18C1FE98 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430AF2E0F1A7BB93155140C5 /* LogView.swift */; };
+		A1A2A3A4B1B2B3B4C1C2C3C4 /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2D3D4E1E2E3E4F1F2F3F4 /* LoginItem.swift */; };
+		1A2B3C4D5E6F7890ABCDEF12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3B4C5D6E7F8901BCDEF123 /* Assets.xcassets */; };
+		2BFD02909FD5305FDEF42B12 /* ScheduleMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */; };
+		4179ABD4949DB9CC1173EB85 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */; };
+		57902EF1423541CFB2A91EE9 /* BreakPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */; };
+		5CBE943631A55A42F9DBA624 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */; };
+		7FEB978D88ED51DA4A551FF5 /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */; };
+		936B6480FEF50F3A3D5F2325 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD3B7AA79275B90E8788BE /* Quadrant.swift */; };
+		A6E7C321C6B92AA4FC116BD7 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */; };
+		A97B958C94F60524CD0CAD59 /* BlockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */; };
+		B3CF62D1211787DFD5DB055D /* PromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE896DC4731CF7D0698BB62 /* PromptView.swift */; };
+		BAEED18F73279C4370197162 /* LogWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2835903680E6E77D8030F7AC /* LogWindowController.swift */; };
+		BE14F5CA80FE76A466E98403 /* WeeklyWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C30DED5E76D060D3B04EABD /* WeeklyWindowController.swift */; };
+		C02AF90FEFA4B1AB86D96EE1 /* PromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461648B3931DF610212A08C4 /* PromptController.swift */; };
+		C772772D5F1F386799A5D1E2 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78627D5E37281D92D4882A9E /* PreferencesView.swift */; };
+		C96BEF53890EA1591ACB9861 /* BreakPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */; };
+		E064B096F16C94AA8B3E832C /* BreakState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693487742313D3CE3F02060 /* BreakState.swift */; };
+		EDDB2B76AD7EC669ED2C7843 /* QuadrantTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */; };
+		FEB79F91381F84D90B780115 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = AD1D57274241DB43E84AA8F5 /* KeyboardShortcuts */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2835903680E6E77D8030F7AC /* LogWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWindowController.swift; sourceTree = "<group>"; };
+		2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakPromptView.swift; sourceTree = "<group>"; };
+		3C30DED5E76D060D3B04EABD /* WeeklyWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWindowController.swift; sourceTree = "<group>"; };
+		430AF2E0F1A7BB93155140C5 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
+		D1D2D3D4E1E2E3E4F1F2F3F4 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
+		2A3B4C5D6E7F8901BCDEF123 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4577E3807549970C95AFE1E5 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
+		461648B3931DF610212A08C4 /* PromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptController.swift; sourceTree = "<group>"; };
+		47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		4DE896DC4731CF7D0698BB62 /* PromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptView.swift; sourceTree = "<group>"; };
+		4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantTimerApp.swift; sourceTree = "<group>"; };
+		542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakPromptController.swift; sourceTree = "<group>"; };
+		6693487742313D3CE3F02060 /* BreakState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakState.swift; sourceTree = "<group>"; };
+		78627D5E37281D92D4882A9E /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
+		7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMonitor.swift; sourceTree = "<group>"; };
+		7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
+		A03E98ED8CC90501561B94D9 /* QuadrantTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuadrantTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAFD3B7AA79275B90E8788BE /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
+		B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
+		D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLogger.swift; sourceTree = "<group>"; };
+		FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3B4C5D6E7F8901ABCDEF1234 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A2B3C4D5E6F7890ABCDEF12 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F27C40165F591AF144D0C0EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEB79F91381F84D90B780115 /* KeyboardShortcuts in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EBA847D032D658AC0CC8EBC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A03E98ED8CC90501561B94D9 /* QuadrantTimer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96868572215D65E08C722C97 = {
+			isa = PBXGroup;
+			children = (
+				E8B94C638ECD4692C881AB33 /* Sources */,
+				0EBA847D032D658AC0CC8EBC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8B94C638ECD4692C881AB33 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				EB208876BD5043CA7A79ABA9 /* QuadrantTimer */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		EB208876BD5043CA7A79ABA9 /* QuadrantTimer */ = {
+			isa = PBXGroup;
+			children = (
+				2A3B4C5D6E7F8901BCDEF123 /* Assets.xcassets */,
+				D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */,
+				542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */,
+				2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */,
+				6693487742313D3CE3F02060 /* BreakState.swift */,
+				430AF2E0F1A7BB93155140C5 /* LogView.swift */,
+				D1D2D3D4E1E2E3E4F1F2F3F4 /* LoginItem.swift */,
+				2835903680E6E77D8030F7AC /* LogWindowController.swift */,
+				78627D5E37281D92D4882A9E /* PreferencesView.swift */,
+				47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */,
+				461648B3931DF610212A08C4 /* PromptController.swift */,
+				4DE896DC4731CF7D0698BB62 /* PromptView.swift */,
+				AAFD3B7AA79275B90E8788BE /* Quadrant.swift */,
+				4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */,
+				FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */,
+				7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */,
+				4577E3807549970C95AFE1E5 /* Shortcuts.swift */,
+				7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */,
+				B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */,
+				3C30DED5E76D060D3B04EABD /* WeeklyWindowController.swift */,
+			);
+			path = QuadrantTimer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		04474E0F3EC608F246EFDF9F /* QuadrantTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E52646D1BB3D1F8E8C51BF31 /* Build configuration list for PBXNativeTarget "QuadrantTimer" */;
+			buildPhases = (
+				BE95866026C5A39783D47F84 /* Sources */,
+				F27C40165F591AF144D0C0EF /* Frameworks */,
+				3B4C5D6E7F8901ABCDEF1234 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuadrantTimer;
+			packageProductDependencies = (
+				AD1D57274241DB43E84AA8F5 /* KeyboardShortcuts */,
+			);
+			productName = QuadrantTimer;
+			productReference = A03E98ED8CC90501561B94D9 /* QuadrantTimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D983083656A65BFCAA8711C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					04474E0F3EC608F246EFDF9F = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4C5549546ED41E96D1B109D1 /* Build configuration list for PBXProject "QuadrantTimer" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 96868572215D65E08C722C97;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9886D12C777DBF1F3611503D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0EBA847D032D658AC0CC8EBC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				04474E0F3EC608F246EFDF9F /* QuadrantTimer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BE95866026C5A39783D47F84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A97B958C94F60524CD0CAD59 /* BlockLogger.swift in Sources */,
+				C96BEF53890EA1591ACB9861 /* BreakPromptController.swift in Sources */,
+				57902EF1423541CFB2A91EE9 /* BreakPromptView.swift in Sources */,
+				E064B096F16C94AA8B3E832C /* BreakState.swift in Sources */,
+				2633B01DDE71D18A18C1FE98 /* LogView.swift in Sources */,
+				A1A2A3A4B1B2B3B4C1C2C3C4 /* LoginItem.swift in Sources */,
+				BAEED18F73279C4370197162 /* LogWindowController.swift in Sources */,
+				C772772D5F1F386799A5D1E2 /* PreferencesView.swift in Sources */,
+				4179ABD4949DB9CC1173EB85 /* PreferencesWindowController.swift in Sources */,
+				C02AF90FEFA4B1AB86D96EE1 /* PromptController.swift in Sources */,
+				B3CF62D1211787DFD5DB055D /* PromptView.swift in Sources */,
+				936B6480FEF50F3A3D5F2325 /* Quadrant.swift in Sources */,
+				EDDB2B76AD7EC669ED2C7843 /* QuadrantTimerApp.swift in Sources */,
+				5CBE943631A55A42F9DBA624 /* Schedule.swift in Sources */,
+				2BFD02909FD5305FDEF42B12 /* ScheduleMonitor.swift in Sources */,
+				09AEA4BC12A637FF0D262690 /* Shortcuts.swift in Sources */,
+				A6E7C321C6B92AA4FC116BD7 /* TimerEngine.swift in Sources */,
+				7FEB978D88ED51DA4A551FF5 /* WeeklyView.swift in Sources */,
+				BE14F5CA80FE76A466E98403 /* WeeklyWindowController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		007D4B56A46EC2FC69965C02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/QuadrantTimer/QuadrantTimer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/QuadrantTimer/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = QuadrantTimer;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		564CCEEE380CFC122FFF2C3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/QuadrantTimer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ike";
+				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.adamcuppy.QuadrantTimer;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		98BD83A425FFD3E8DDEBC0C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/QuadrantTimer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ike";
+				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.adamcuppy.QuadrantTimer;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B9FD89FEBB450B2082126DCC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Sources/QuadrantTimer/QuadrantTimer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Sources/QuadrantTimer/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = QuadrantTimer;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4C5549546ED41E96D1B109D1 /* Build configuration list for PBXProject "QuadrantTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9FD89FEBB450B2082126DCC /* Debug */,
+				007D4B56A46EC2FC69965C02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E52646D1BB3D1F8E8C51BF31 /* Build configuration list for PBXNativeTarget "QuadrantTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98BD83A425FFD3E8DDEBC0C0 /* Debug */,
+				564CCEEE380CFC122FFF2C3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9886D12C777DBF1F3611503D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AD1D57274241DB43E84AA8F5 /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9886D12C777DBF1F3611503D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D983083656A65BFCAA8711C3 /* Project object */;
+}
