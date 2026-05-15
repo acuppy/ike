@@ -103,7 +103,7 @@ struct LogView: View {
             Divider()
             ScrollView {
                 VStack(spacing: 0) {
-                    ForEach(viewModel.entries, id: \.start) { entry in
+                    ForEach(viewModel.entries.reversed(), id: \.start) { entry in
                         EntryRow(entry: entry, isSelected: viewModel.selectedEntry?.start == entry.start)
                             .contentShape(Rectangle())
                             .onTapGesture {
@@ -117,7 +117,7 @@ struct LogView: View {
                     }
                 }
             }
-            .frame(maxHeight: 240)
+            .frame(height: 240)
             Divider()
         }
     }
