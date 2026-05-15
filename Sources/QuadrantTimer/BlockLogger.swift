@@ -8,7 +8,7 @@ struct BlockEntry: Codable {
     let auto: Bool
 }
 
-final class BlockLogger {
+final class BlockLogger: @unchecked Sendable {
     static let shared = BlockLogger()
 
     let fileURL: URL
