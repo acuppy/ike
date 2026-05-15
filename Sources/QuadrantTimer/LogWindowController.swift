@@ -19,7 +19,7 @@ final class LogWindowController {
         let host = NSHostingController(rootView: LogView(viewModel: viewModel))
 
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 520, height: 640),
+            contentRect: NSRect(x: 0, y: 0, width: 520, height: 720),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
             defer: true

@@ -12,6 +12,45 @@ extension Quadrant {
     }
 }
 
+struct TrendingSummary {
+    let caption: String
+    let label: String
+    let tint: Color
+
+    static let minTotalTime: TimeInterval = 2 * 60 * 60
+    static let minEvents: Int = 4
+    static let dominanceThreshold: Double = 0.45
+
+    static func compute(from entries: [BlockEntry]) -> TrendingSummary? {
+        let working = entries.filter { $0.quadrant != .breakTime }
+        let totalTime = working.reduce(0.0) { $0 + $1.end.timeIntervalSince($1.start) }
+        guard totalTime > 0 else { return nil }
+        guard totalTime >= minTotalTime || working.count >= minEvents else { return nil }
+
+        var byQuadrant: [Quadrant: TimeInterval] = [:]
+        for entry in working {
+            byQuadrant[entry.quadrant, default: 0] += entry.end.timeIntervalSince(entry.start)
+        }
+        let sorted = byQuadrant.sorted { $0.value > $1.value }
+        guard let top = sorted.first else { return nil }
+
+        if top.value / totalTime >= dominanceThreshold {
+            return TrendingSummary(
+                caption: "Today is trending toward",
+                label: top.key.label,
+                tint: top.key.color
+            )
+        }
+        guard sorted.count >= 2 else { return nil }
+        let second = sorted[1]
+        return TrendingSummary(
+            caption: "Today is mixed",
+            label: "\(top.key.label) · \(second.key.label)",
+            tint: .secondary
+        )
+    }
+}
+
 @MainActor
 @Observable
 final class LogViewModel {
@@ -28,6 +67,10 @@ struct LogView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
+            if !viewModel.entries.isEmpty,
+               let trend = TrendingSummary.compute(from: viewModel.entries) {
+                trendingBanner(trend)
+            }
             header
             if viewModel.entries.isEmpty {
                 emptyState
@@ -96,6 +139,28 @@ struct LogView: View {
             .foregroundStyle(.secondary)
             .monospacedDigit()
         }
+    }
+
+    private func trendingBanner(_ trend: TrendingSummary) -> some View {
+        HStack(alignment: .center, spacing: 12) {
+            RoundedRectangle(cornerRadius: 2)
+                .fill(trend.tint)
+                .frame(width: 4)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(trend.caption)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Text(trend.label)
+                    .font(.title3.weight(.semibold))
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(trend.tint.opacity(0.12))
+        )
     }
 
     private var entryList: some View {
