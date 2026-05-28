@@ -1,0 +1,36 @@
+<%# Aggregate region above the entries list — trending banner + header +
+    timeline. Rebroadcast whole on any block change for `day.user`. %>
+<div id="today-top">
+  <% if (trend = day.trend) %>
+    <div class="flex items-center gap-3 rounded-xl px-4 py-3 mb-6"
+         style="background-color: <%= trend.tint ? "#{trend.tint}1f" : "#f3f4f6" %>">
+      <span class="w-1 self-stretch rounded" style="background-color: <%= trend.tint || "#9ca3af" %>"></span>
+      <div>
+        <div class="text-xs text-gray-500"><%= trend.caption %></div>
+        <div class="text-lg font-semibold"><%= trend.label %></div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="flex items-baseline justify-between mb-4">
+    <h1 class="text-xl font-bold">Today's blocks</h1>
+    <span class="text-sm text-gray-500"><%= Date.current.strftime("%a, %b %-d") %></span>
+  </div>
+
+  <% if day.empty? %>
+    <div class="text-center py-20 text-gray-400">
+      <div class="text-4xl mb-3">▦</div>
+      <p>No blocks logged yet today</p>
+    </div>
+  <% else %>
+    <div class="mb-1 flex gap-px h-9 rounded-lg overflow-hidden">
+      <% day.segments.each do |seg| %>
+        <div style="flex: <%= seg.fraction %>; background-color: <%= seg.quadrant.color %>; min-width: 2px;"></div>
+      <% end %>
+    </div>
+    <div class="flex justify-between text-xs font-mono text-gray-400 mb-6">
+      <span><%= format_time(day.first_start) %></span>
+      <span><%= format_time(day.last_end) %></span>
+    </div>
+  <% end %>
+</div>
