@@ -1,0 +1,22 @@
+<%# Aggregate region below the entries list — per-quadrant totals. %>
+<div id="today-bottom">
+  <% if day.empty? %>
+    <%# nothing to render — empty state lives in #today-top %>
+  <% else %>
+    <div class="border-t border-gray-200 pt-4 space-y-1.5">
+      <% day.quadrant_totals.each do |total| %>
+        <div class="flex items-center text-sm">
+          <span class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: <%= total.quadrant.color %>"></span>
+          <span><%= total.quadrant.label %></span>
+          <span class="ml-auto font-mono <%= total.count.zero? ? "text-gray-300" : "text-gray-900" %>"><%= format_duration(total.seconds) %></span>
+          <span class="mx-2 text-gray-300">·</span>
+          <span class="text-gray-500 w-16 text-right"><%= total.count %> block<%= "s" unless total.count == 1 %></span>
+        </div>
+      <% end %>
+      <div class="flex items-center text-sm font-semibold border-t border-gray-200 pt-2 mt-2">
+        <span>Total</span>
+        <span class="ml-auto font-mono"><%= format_duration(day.total_seconds) %> · <%= day.blocks.size %> blocks</span>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,34 @@
+<%# The whole stacked-bar chart, rebroadcast as one unit on any block change. %>
+<div id="week-chart">
+  <% if week.empty? %>
+    <div class="text-center py-20 text-gray-400">
+      <div class="text-4xl mb-3">▦</div>
+      <p>No blocks logged this week</p>
+    </div>
+  <% else %>
+    <div class="flex items-end gap-2 mb-6" style="height: 220px;">
+      <% week.days.each do |day| %>
+        <div class="flex-1 flex flex-col items-center h-full">
+          <div class="text-xs font-mono text-gray-400 h-4 mb-1">
+            <%= format_duration(day.total_seconds) if day.total_seconds.positive? %>
+          </div>
+          <div class="w-full flex-1 flex flex-col justify-end rounded overflow-hidden bg-gray-100">
+            <% day.stack.each do |piece| %>
+              <div style="height: <%= (piece.fraction * 100).round(2) %>%; background-color: <%= piece.quadrant.color %>;"></div>
+            <% end %>
+          </div>
+          <div class="text-xs text-gray-500 mt-1"><%= day.label %></div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="flex flex-wrap gap-4">
+      <% Quadrant.all.each do |q| %>
+        <div class="flex items-center gap-1.5 text-xs text-gray-500">
+          <span class="w-2 h-2 rounded-full" style="background-color: <%= q.color %>"></span>
+          <%= q.label %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,59 +1,15 @@
 <% content_for :title, "Today · Ike" %>
 
-<% if @day.empty? %>
-  <div class="text-center py-20 text-gray-400">
-    <div class="text-4xl mb-3">▦</div>
-    <p>No blocks logged yet today</p>
-  </div>
-<% else %>
-  <% if (trend = @day.trend) %>
-    <div class="flex items-center gap-3 rounded-xl px-4 py-3 mb-6"
-         style="background-color: <%= trend.tint ? "#{trend.tint}1f" : "#f3f4f6" %>">
-      <span class="w-1 self-stretch rounded" style="background-color: <%= trend.tint || "#9ca3af" %>"></span>
-      <div>
-        <div class="text-xs text-gray-500"><%= trend.caption %></div>
-        <div class="text-lg font-semibold"><%= trend.label %></div>
-      </div>
-    </div>
+<%# Subscribe to live updates for this user's blocks. Broadcasts target the
+    stable DOM ids #today-top, #today-bottom, and per-row turbo frames. %>
+<%= turbo_stream_from "user_#{current_user.id}_blocks" %>
+
+<%= render "today_top", day: @day %>
+
+<div id="today-entries" class="border-t border-gray-200 divide-y divide-gray-100 mb-6">
+  <% @day.blocks.reverse_each do |block| %>
+    <%= render "blocks/block", block: block %>
   <% end %>
+</div>
 
-  <div class="flex items-baseline justify-between mb-4">
-    <h1 class="text-xl font-bold">Today's blocks</h1>
-    <span class="text-sm text-gray-500"><%= Date.current.strftime("%a, %b %-d") %></span>
-  </div>
-
-  <%# Colored proportional timeline %>
-  <div class="mb-1 flex gap-px h-9 rounded-lg overflow-hidden">
-    <% @day.segments.each do |seg| %>
-      <div style="flex: <%= seg.fraction %>; background-color: <%= seg.quadrant.color %>; min-width: 2px;"></div>
-    <% end %>
-  </div>
-  <div class="flex justify-between text-xs font-mono text-gray-400 mb-6">
-    <span><%= format_time(@day.first_start) %></span>
-    <span><%= format_time(@day.last_end) %></span>
-  </div>
-
-  <%# Entries, newest first %>
-  <div class="border-t border-gray-200 divide-y divide-gray-100 mb-6">
-    <% @day.blocks.reverse_each do |block| %>
-      <%= render "blocks/block", block: block %>
-    <% end %>
-  </div>
-
-  <%# Per-quadrant summary %>
-  <div class="space-y-1.5">
-    <% @day.quadrant_totals.each do |total| %>
-      <div class="flex items-center text-sm">
-        <span class="w-2.5 h-2.5 rounded-full mr-2" style="background-color: <%= total.quadrant.color %>"></span>
-        <span><%= total.quadrant.label %></span>
-        <span class="ml-auto font-mono <%= total.count.zero? ? "text-gray-300" : "text-gray-900" %>"><%= format_duration(total.seconds) %></span>
-        <span class="mx-2 text-gray-300">·</span>
-        <span class="text-gray-500 w-16 text-right"><%= total.count %> block<%= "s" unless total.count == 1 %></span>
-      </div>
-    <% end %>
-    <div class="flex items-center text-sm font-semibold border-t border-gray-200 pt-2 mt-2">
-      <span>Total</span>
-      <span class="ml-auto font-mono"><%= format_duration(@day.total_seconds) %> · <%= @day.blocks.size %> blocks</span>
-    </div>
-  </div>
-<% end %>
+<%= render "today_bottom", day: @day %>
