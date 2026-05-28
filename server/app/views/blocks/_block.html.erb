@@ -1,0 +1,17 @@
+<%= turbo_frame_tag block do %>
+  <div class="group flex items-center gap-3 px-3 py-2.5 hover:bg-gray-50 rounded-lg">
+    <span class="text-xs font-mono text-gray-400 w-28 shrink-0">
+      <%= format_time(block.starts_at) %> – <%= format_time(block.ends_at) %>
+    </span>
+    <span class="w-2 h-2 rounded-full shrink-0" style="background-color: <%= block.quadrant_value.color %>"></span>
+    <div class="min-w-0 flex-1">
+      <div class="text-sm"><%= block.quadrant_value.label %></div>
+      <% if block.note.present? %>
+        <div class="text-xs text-gray-500 truncate"><%= block.note %></div>
+      <% end %>
+    </div>
+    <span class="text-xs font-mono text-gray-400 shrink-0"><%= format_duration(block.duration) %></span>
+    <%= link_to "Edit", edit_block_path(block),
+          class: "text-xs text-blue-600 opacity-0 group-hover:opacity-100 shrink-0" %>
+  </div>
+<% end %>

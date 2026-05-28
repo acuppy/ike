@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Ike" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Ike">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 min-h-screen">
+    <% if signed_in? %>
+      <header class="border-b border-gray-200 bg-white">
+        <div class="max-w-3xl mx-auto px-5 h-14 flex items-center gap-6">
+          <%= link_to root_path, class: "flex items-center gap-2 font-semibold" do %>
+            <span class="inline-grid grid-cols-2 gap-px w-4 h-4">
+              <span class="bg-red-500"></span><span class="bg-green-500"></span>
+              <span class="bg-orange-500"></span><span class="bg-gray-400"></span>
+            </span>
+            Ike
+          <% end %>
+          <nav class="flex items-center gap-4 text-sm">
+            <%= nav_link "Today", today_path %>
+            <%= nav_link "This week", week_path %>
+            <%= nav_link "All activity", blocks_path %>
+          </nav>
+          <div class="ml-auto flex items-center gap-3 text-sm text-gray-500">
+            <span><%= current_user.email %></span>
+            <%= button_to "Sign out", logout_path, method: :delete,
+                  class: "text-gray-500 hover:text-gray-900" %>
+          </div>
+        </div>
+      </header>
+    <% end %>
+
+    <main class="max-w-3xl mx-auto px-5 py-8">
+      <% flash.each do |type, message| %>
+        <div class="mb-4 rounded-lg px-4 py-2 text-sm <%= type.to_s == "alert" ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700" %>">
+          <%= message %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
+</html>
