@@ -8,15 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		09AEA4BC12A637FF0D262690 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577E3807549970C95AFE1E5 /* Shortcuts.swift */; };
+		168D0D6A027D23400535B8DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F33D1EB75C58A7B2DEF012CB /* Assets.xcassets */; };
 		2633B01DDE71D18A18C1FE98 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430AF2E0F1A7BB93155140C5 /* LogView.swift */; };
-		A1A2A3A4B1B2B3B4C1C2C3C4 /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D2D3D4E1E2E3E4F1F2F3F4 /* LoginItem.swift */; };
-		1A2B3C4D5E6F7890ABCDEF12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A3B4C5D6E7F8901BCDEF123 /* Assets.xcassets */; };
 		2BFD02909FD5305FDEF42B12 /* ScheduleMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */; };
 		4179ABD4949DB9CC1173EB85 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */; };
 		57902EF1423541CFB2A91EE9 /* BreakPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */; };
 		5CBE943631A55A42F9DBA624 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */; };
+		7FD7F68C1DB8032FCCC2FA19 /* BlockSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F03D19BC0358B416972EE0 /* BlockSyncer.swift */; };
 		7FEB978D88ED51DA4A551FF5 /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */; };
 		936B6480FEF50F3A3D5F2325 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD3B7AA79275B90E8788BE /* Quadrant.swift */; };
+		9A48862752583D71D5597F5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF32B017B76E422CD357D22 /* AppDelegate.swift */; };
+		9C00E9A42E0055277B704F85 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3B40EFE4FA0DD0247F1DE0 /* KeychainStore.swift */; };
 		A6E7C321C6B92AA4FC116BD7 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */; };
 		A97B958C94F60524CD0CAD59 /* BlockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */; };
 		B3CF62D1211787DFD5DB055D /* PromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE896DC4731CF7D0698BB62 /* PromptView.swift */; };
@@ -26,17 +28,19 @@
 		C772772D5F1F386799A5D1E2 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78627D5E37281D92D4882A9E /* PreferencesView.swift */; };
 		C96BEF53890EA1591ACB9861 /* BreakPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */; };
 		E064B096F16C94AA8B3E832C /* BreakState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693487742313D3CE3F02060 /* BreakState.swift */; };
+		EAFD18B3B3FDD2F97904730E /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFA6200873013C421437ADB /* LoginItem.swift */; };
 		EDDB2B76AD7EC669ED2C7843 /* QuadrantTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */; };
+		F4108D476B01E590D4B6E928 /* ServerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A6653AFD2D8E2F35E5CD8 /* ServerSettings.swift */; };
 		FEB79F91381F84D90B780115 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = AD1D57274241DB43E84AA8F5 /* KeyboardShortcuts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AFA6200873013C421437ADB /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
+		0EF32B017B76E422CD357D22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2835903680E6E77D8030F7AC /* LogWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWindowController.swift; sourceTree = "<group>"; };
 		2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakPromptView.swift; sourceTree = "<group>"; };
 		3C30DED5E76D060D3B04EABD /* WeeklyWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWindowController.swift; sourceTree = "<group>"; };
 		430AF2E0F1A7BB93155140C5 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
-		D1D2D3D4E1E2E3E4F1F2F3F4 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
-		2A3B4C5D6E7F8901BCDEF123 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4577E3807549970C95AFE1E5 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		461648B3931DF610212A08C4 /* PromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptController.swift; sourceTree = "<group>"; };
 		47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
@@ -44,26 +48,19 @@
 		4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantTimerApp.swift; sourceTree = "<group>"; };
 		542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakPromptController.swift; sourceTree = "<group>"; };
 		6693487742313D3CE3F02060 /* BreakState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakState.swift; sourceTree = "<group>"; };
+		677A6653AFD2D8E2F35E5CD8 /* ServerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettings.swift; sourceTree = "<group>"; };
 		78627D5E37281D92D4882A9E /* PreferencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesView.swift; sourceTree = "<group>"; };
 		7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMonitor.swift; sourceTree = "<group>"; };
 		7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
+		97F03D19BC0358B416972EE0 /* BlockSyncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSyncer.swift; sourceTree = "<group>"; };
 		A03E98ED8CC90501561B94D9 /* QuadrantTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuadrantTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAFD3B7AA79275B90E8788BE /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
+		BB3B40EFE4FA0DD0247F1DE0 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLogger.swift; sourceTree = "<group>"; };
+		F33D1EB75C58A7B2DEF012CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXResourcesBuildPhase section */
-		3B4C5D6E7F8901ABCDEF1234 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1A2B3C4D5E6F7890ABCDEF12 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F27C40165F591AF144D0C0EF /* Frameworks */ = {
@@ -104,13 +101,16 @@
 		EB208876BD5043CA7A79ABA9 /* QuadrantTimer */ = {
 			isa = PBXGroup;
 			children = (
-				2A3B4C5D6E7F8901BCDEF123 /* Assets.xcassets */,
+				0EF32B017B76E422CD357D22 /* AppDelegate.swift */,
+				F33D1EB75C58A7B2DEF012CB /* Assets.xcassets */,
 				D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */,
+				97F03D19BC0358B416972EE0 /* BlockSyncer.swift */,
 				542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */,
 				2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */,
 				6693487742313D3CE3F02060 /* BreakState.swift */,
+				BB3B40EFE4FA0DD0247F1DE0 /* KeychainStore.swift */,
+				0AFA6200873013C421437ADB /* LoginItem.swift */,
 				430AF2E0F1A7BB93155140C5 /* LogView.swift */,
-				D1D2D3D4E1E2E3E4F1F2F3F4 /* LoginItem.swift */,
 				2835903680E6E77D8030F7AC /* LogWindowController.swift */,
 				78627D5E37281D92D4882A9E /* PreferencesView.swift */,
 				47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */,
@@ -120,6 +120,7 @@
 				4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */,
 				FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */,
 				7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */,
+				677A6653AFD2D8E2F35E5CD8 /* ServerSettings.swift */,
 				4577E3807549970C95AFE1E5 /* Shortcuts.swift */,
 				7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */,
 				B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */,
@@ -136,8 +137,8 @@
 			buildConfigurationList = E52646D1BB3D1F8E8C51BF31 /* Build configuration list for PBXNativeTarget "QuadrantTimer" */;
 			buildPhases = (
 				BE95866026C5A39783D47F84 /* Sources */,
+				A8BB7A3851AE1B424B440FBF /* Resources */,
 				F27C40165F591AF144D0C0EF /* Frameworks */,
-				3B4C5D6E7F8901ABCDEF1234 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -188,18 +189,32 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		A8BB7A3851AE1B424B440FBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				168D0D6A027D23400535B8DC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BE95866026C5A39783D47F84 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A48862752583D71D5597F5C /* AppDelegate.swift in Sources */,
 				A97B958C94F60524CD0CAD59 /* BlockLogger.swift in Sources */,
+				7FD7F68C1DB8032FCCC2FA19 /* BlockSyncer.swift in Sources */,
 				C96BEF53890EA1591ACB9861 /* BreakPromptController.swift in Sources */,
 				57902EF1423541CFB2A91EE9 /* BreakPromptView.swift in Sources */,
 				E064B096F16C94AA8B3E832C /* BreakState.swift in Sources */,
+				9C00E9A42E0055277B704F85 /* KeychainStore.swift in Sources */,
 				2633B01DDE71D18A18C1FE98 /* LogView.swift in Sources */,
-				A1A2A3A4B1B2B3B4C1C2C3C4 /* LoginItem.swift in Sources */,
 				BAEED18F73279C4370197162 /* LogWindowController.swift in Sources */,
+				EAFD18B3B3FDD2F97904730E /* LoginItem.swift in Sources */,
 				C772772D5F1F386799A5D1E2 /* PreferencesView.swift in Sources */,
 				4179ABD4949DB9CC1173EB85 /* PreferencesWindowController.swift in Sources */,
 				C02AF90FEFA4B1AB86D96EE1 /* PromptController.swift in Sources */,
@@ -208,6 +223,7 @@
 				EDDB2B76AD7EC669ED2C7843 /* QuadrantTimerApp.swift in Sources */,
 				5CBE943631A55A42F9DBA624 /* Schedule.swift in Sources */,
 				2BFD02909FD5305FDEF42B12 /* ScheduleMonitor.swift in Sources */,
+				F4108D476B01E590D4B6E928 /* ServerSettings.swift in Sources */,
 				09AEA4BC12A637FF0D262690 /* Shortcuts.swift in Sources */,
 				A6E7C321C6B92AA4FC116BD7 /* TimerEngine.swift in Sources */,
 				7FEB978D88ED51DA4A551FF5 /* WeeklyView.swift in Sources */,
@@ -288,9 +304,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Sources/QuadrantTimer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ike";
 				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
-				INFOPLIST_KEY_LSUIElement = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -306,9 +320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Sources/QuadrantTimer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Ike";
 				INFOPLIST_KEY_LSMinimumSystemVersion = 14.0;
-				INFOPLIST_KEY_LSUIElement = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
