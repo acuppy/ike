@@ -1,5 +1,12 @@
 import Foundation
 
+extension Notification.Name {
+    // Posted on the main queue after BlockLogger writes (append or update),
+    // with `entry` (BlockEntry) in userInfo. Lets observers (e.g. the
+    // syncer) react without BlockLogger needing to know about them.
+    static let blockLoggerDidChange = Notification.Name("BlockLoggerDidChange")
+}
+
 struct BlockEntry: Codable {
     let start: Date
     let end: Date
@@ -43,6 +50,7 @@ final class BlockLogger: @unchecked Sendable {
                 } else {
                     try data.write(to: fileURL, options: .atomic)
                 }
+                Self.notifyDidChange(entry)
             } catch {
                 NSLog("BlockLogger append failed: \(error)")
             }
@@ -70,9 +78,20 @@ final class BlockLogger: @unchecked Sendable {
                     }
                 }
                 try output.write(to: fileURL, options: .atomic)
+                Self.notifyDidChange(entry)
             } catch {
                 NSLog("BlockLogger update failed: \(error)")
             }
+        }
+    }
+
+    private static func notifyDidChange(_ entry: BlockEntry) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(
+                name: .blockLoggerDidChange,
+                object: nil,
+                userInfo: ["entry": entry]
+            )
         }
     }
 
@@ -91,6 +110,21 @@ final class BlockLogger: @unchecked Sendable {
             if entry.start >= today && entry.start < tomorrow {
                 entries.append(entry)
             }
+        }
+        entries.sort { $0.start < $1.start }
+        return entries
+    }
+
+    func allEntries() -> [BlockEntry] {
+        guard let data = try? Data(contentsOf: fileURL),
+              let text = String(data: data, encoding: .utf8) else { return [] }
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        var entries: [BlockEntry] = []
+        for line in text.split(separator: "\n", omittingEmptySubsequences: true) {
+            guard let lineData = line.data(using: .utf8),
+                  let entry = try? decoder.decode(BlockEntry.self, from: lineData) else { continue }
+            entries.append(entry)
         }
         entries.sort { $0.start < $1.start }
         return entries

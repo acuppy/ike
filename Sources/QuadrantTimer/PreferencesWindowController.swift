@@ -6,14 +6,28 @@ final class PreferencesWindowController {
     private var window: NSWindow?
     private var delegate: PrefsWindowDelegate?
 
-    func present(settings: ScheduleSettings, loginItem: LoginItem) {
+    func present(
+        settings: ScheduleSettings,
+        loginItem: LoginItem,
+        serverSettings: ServerSettings,
+        blockSyncer: BlockSyncer,
+        onConnect: @escaping () -> Void,
+        onDisconnect: @escaping () -> Void
+    ) {
         if let window {
             NSApp.activate(ignoringOtherApps: true)
             window.makeKeyAndOrderFront(nil)
             return
         }
 
-        let host = NSHostingController(rootView: PreferencesView(settings: settings, loginItem: loginItem))
+        let host = NSHostingController(rootView: PreferencesView(
+            settings: settings,
+            loginItem: loginItem,
+            serverSettings: serverSettings,
+            blockSyncer: blockSyncer,
+            onConnect: onConnect,
+            onDisconnect: onDisconnect
+        ))
         host.sizingOptions = [.preferredContentSize]
 
         let window = NSWindow(contentViewController: host)

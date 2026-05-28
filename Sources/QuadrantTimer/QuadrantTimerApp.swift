@@ -4,6 +4,7 @@ import KeyboardShortcuts
 
 @main
 struct QuadrantTimerApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @State private var coordinator = AppCoordinator()
 
     var body: some Scene {
@@ -72,9 +73,16 @@ final class AppCoordinator {
     let breakState = BreakState()
     let breakPrompt = BreakPromptController()
     let loginItem = LoginItem()
+    let serverSettings = ServerSettings()
+    let blockSyncer: BlockSyncer
 
     init() {
         scheduleMonitor = ScheduleMonitor(settings: scheduleSettings)
+        blockSyncer = BlockSyncer(settings: serverSettings)
+
+        URLEventBridge.shared.setHandler { [weak self] url in
+            self?.handleURL(url)
+        }
 
         timer.blockDurationProvider = { [scheduleSettings] in
             TimeInterval(max(1, scheduleSettings.blockDurationMinutes) * 60)
@@ -108,6 +116,32 @@ final class AppCoordinator {
         if scheduleMonitor.isActive {
             timer.start()
         }
+
+        // Push any locally-logged blocks that haven't been synced yet.
+        blockSyncer.sync()
+    }
+
+    // Handles ike://connected?token=…&email=… from the server's /connect
+    // redirect. Anything else gets ignored.
+    func handleURL(_ url: URL) {
+        guard url.scheme == "ike", url.host == "connected" else { return }
+        let items = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
+        guard let token = items.first(where: { $0.name == "token" })?.value,
+              let email = items.first(where: { $0.name == "email" })?.value else { return }
+        serverSettings.connect(token: token, email: email)
+        blockSyncer.forgetSyncedIds()  // fresh server / fresh account → repush everything
+        blockSyncer.sync()
+        showPreferences()
+    }
+
+    func openServerSignIn() {
+        guard let url = serverSettings.connectURL else { return }
+        NSWorkspace.shared.open(url)
+    }
+
+    func disconnectFromServer() {
+        serverSettings.disconnect()
+        blockSyncer.forgetSyncedIds()
     }
 
     func logNowAndRestart() {
@@ -143,7 +177,14 @@ final class AppCoordinator {
     }
 
     func showPreferences() {
-        preferencesWindow.present(settings: scheduleSettings, loginItem: loginItem)
+        preferencesWindow.present(
+            settings: scheduleSettings,
+            loginItem: loginItem,
+            serverSettings: serverSettings,
+            blockSyncer: blockSyncer,
+            onConnect: { [weak self] in self?.openServerSignIn() },
+            onDisconnect: { [weak self] in self?.disconnectFromServer() }
+        )
     }
 
     func toggleWorkOverride() {

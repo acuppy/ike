@@ -33,13 +33,11 @@ targets:
         excludes:
           - "Info.plist"
           - "*.entitlements"
-    info:
-      path: Sources/QuadrantTimer/Info.plist
+    # No `info:` block — INFOPLIST_FILE points at the hand-maintained plist
+    # so xcodegen leaves it alone (custom URL scheme lives there).
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.adamcuppy.QuadrantTimer
-        INFOPLIST_KEY_LSUIElement: YES
-        INFOPLIST_KEY_CFBundleDisplayName: Quadrant Timer
         INFOPLIST_KEY_LSMinimumSystemVersion: "14.0"
     dependencies:
       - package: KeyboardShortcuts

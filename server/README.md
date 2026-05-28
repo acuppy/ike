@@ -85,8 +85,18 @@ curl -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/jso
   http://localhost:3000/api/v1/blocks
 ```
 
-The widget integration (wiring `BlockLogger` in the Swift app to POST here) is
-a separate change — this server is the destination.
+## Connecting the macOS widget
+
+The widget opens `GET /connect?return_scheme=ike` in your browser. After
+sign-in, the server redirects to `ike://connected?token=…&email=…`, which
+macOS routes to the app. The app then stores the token in Keychain and a
+background `BlockSyncer` POSTs every locally-logged block to
+`/api/v1/blocks`, keyed on `external_id` (the block's start timestamp) so
+retries upsert rather than duplicate.
+
+The local JSONL stays the source of truth; the syncer is additive. Sync runs
+on app launch, after every append/update (via `BlockLogger`'s
+`.blockLoggerDidChange` notification), and after the user connects/reconnects.
 
 ## Data model
 

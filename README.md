@@ -35,3 +35,14 @@ Tell Ike when you work and it activates automatically — quiet outside those ho
 ## Requirements
 
 macOS 14 or later. Menu bar only — no Dock icon.
+
+## Server
+
+A Rails backend lives under [`server/`](server/) — Google sign-in, per-user
+SQLite log, the same Today / Weekly / All activity views, and a JSON API the
+menu bar app pushes into. See [`server/README.md`](server/README.md).
+
+When connected (Preferences → Server → **Connect with Google…**), Ike keeps
+writing its local JSONL as the source of truth and a background syncer pushes
+each block to the server; idempotent on retry, offline-safe, and unsynced
+entries drain on app launch.
