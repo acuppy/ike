@@ -17,7 +17,9 @@
                    "background-color: #f9fafb;"
                  end
         %>
-        <div class="aspect-square rounded-md p-2 flex flex-col" style="<%= fill %>">
+        <%= link_to today_path(date: day.date.iso8601),
+              class: "aspect-square rounded-md p-2 flex flex-col hover:opacity-90 transition",
+              style: fill do %>
           <span class="text-sm font-medium <%= day.in_month ? "text-gray-900" : "text-gray-300" %>">
             <%= day.date.day %>
           </span>
@@ -26,7 +28,7 @@
               <span class="w-1.5 h-1.5 rounded-full" style="background-color: <%= day.majority.color %>"></span>
             </span>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>

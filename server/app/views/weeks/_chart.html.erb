@@ -8,7 +8,8 @@
   <% else %>
     <div class="flex items-end gap-2 mb-6" style="height: 220px;">
       <% week.days.each do |day| %>
-        <div class="flex-1 flex flex-col items-center h-full">
+        <%= link_to today_path(date: day.date.iso8601),
+              class: "flex-1 flex flex-col items-center h-full hover:opacity-75 transition" do %>
           <div class="text-xs font-mono text-gray-400 h-4 mb-1">
             <%= format_duration(day.total_seconds) if day.total_seconds.positive? %>
           </div>
@@ -18,7 +19,7 @@
             <% end %>
           </div>
           <div class="text-xs text-gray-500 mt-1"><%= day.label %></div>
-        </div>
+        <% end %>
       <% end %>
     </div>
 

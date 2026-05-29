@@ -1,15 +1,41 @@
-<% content_for :title, "Today · Ike" %>
+<%
+  is_today = @date == Date.current
+  title_word = is_today ? "Today" : @date.strftime("%a, %b %-d")
+%>
+<% content_for :title, "#{title_word} · Ike" %>
 
-<%# Subscribe to live updates for this user's blocks. Broadcasts target the
-    stable DOM ids #today-top, #today-bottom, and per-row turbo frames. %>
+<%# Subscribe to live updates for this user's blocks. The day-scoped DOM ids
+    in _day_top / _day_bottom / #day-entries-* ensure that broadcasts for a
+    different day silently no-op. %>
 <%= turbo_stream_from "user_#{current_user.id}_blocks" %>
 
-<%= render "today_top", day: @day %>
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-xl font-bold">
+    <%= is_today ? "Today" : @date.strftime("%A, %B %-d") %>
+    <% if is_today %>
+      <span class="ml-2 text-sm text-gray-400 font-normal"><%= @date.strftime("%a, %b %-d") %></span>
+    <% end %>
+  </h1>
+  <div class="flex items-center gap-1 text-sm">
+    <%= link_to "‹", today_path(date: (@date - 1.day).iso8601),
+          class: "px-3 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100" %>
+    <% if is_today %>
+      <span class="px-3 py-1 rounded text-gray-300">Today</span>
+    <% else %>
+      <%= link_to "Today", today_path,
+            class: "px-3 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100" %>
+    <% end %>
+    <%= link_to "›", today_path(date: (@date + 1.day).iso8601),
+          class: "px-3 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100" %>
+  </div>
+</div>
 
-<div id="today-entries" class="border-t border-gray-200 divide-y divide-gray-100 mb-6">
+<%= render "day_top", day: @day, date: @date %>
+
+<div id="day-entries-<%= @date.iso8601 %>" class="border-t border-gray-200 divide-y divide-gray-100 mb-6">
   <% @day.blocks.reverse_each do |block| %>
     <%= render "blocks/block", block: block %>
   <% end %>
 </div>
 
-<%= render "today_bottom", day: @day %>
+<%= render "day_bottom", day: @day, date: @date %>
