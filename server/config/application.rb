@@ -16,12 +16,9 @@ module Server
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    # Render dates / scope "today" / format times in my zone, not UTC. The
+    # database keeps storing in UTC (Rails default); only the read side and
+    # the boundary logic (beginning_of_day, today range) shift.
+    config.time_zone = "America/Los_Angeles"
   end
 end
