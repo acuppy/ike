@@ -13,13 +13,15 @@ class Quadrant
     "break" => "Break"
   }.freeze
 
-  # Tailwind-friendly hex colors matching the SwiftUI palette.
+  # Outcome-focused palette (Tailwind Refined hues): Q2 (the target) emerald,
+  # Q4 (regret) rose, Q3 (interruption warning) amber, Q1 (firefighting —
+  # neutralized) slate. Mirrors the SwiftUI palette in LogView.swift.
   COLORS = {
-    "q1" => "#ef4444", # red
-    "q2" => "#22c55e", # green
-    "q3" => "#f97316", # orange
-    "q4" => "#9ca3af", # gray
-    "break" => "#3b82f6" # blue
+    "q1" => "#94a3b8", # slate-400
+    "q2" => "#10b981", # emerald-500
+    "q3" => "#f59e0b", # amber-500
+    "q4" => "#f43f5e", # rose-500
+    "break" => "#0ea5e9" # sky-500
   }.freeze
 
   attr_reader :key
