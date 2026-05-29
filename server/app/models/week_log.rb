@@ -1,44 +1,55 @@
-# The last seven days as stacked columns. Port of WeeklyView.swift.
-# Each Day knows its total time and the per-quadrant fractions that make up
-# its stacked bar, so the view just maps over them.
+# A single Sunday-through-Saturday calendar week. Given the week's blocks and
+# its start_date (must be a Sunday), produces seven Day structs and a label.
+# Pure derivation — the controller picks the week, this object computes its
+# shape.
 class WeekLog
-  Day = Struct.new(:date, :label, :total_seconds, :stack, keyword_init: true)
+  Day = Struct.new(:date, :label, :total_seconds, :stack, :in_future, keyword_init: true)
   StackPiece = Struct.new(:quadrant, :fraction, keyword_init: true)
 
   DAY_LABELS = %w[Su Mo Tu We Th Fr Sa].freeze
+  DAY_LABELS_LONG = %w[Sun Mon Tue Wed Thu Fri Sat].freeze
 
-  attr_reader :blocks
+  attr_reader :start_date, :blocks
 
-  def initialize(blocks)
+  def initialize(blocks, start_date:)
+    @start_date = start_date.to_date
     @blocks = blocks
   end
 
-  def empty?
-    blocks.empty?
+  def end_date
+    start_date + 6.days
   end
 
-  # Seven Day structs, oldest first, ending today.
+  def total_seconds
+    blocks.sum(&:duration)
+  end
+
+  # "May 24 – 30" / "Apr 26 – May 2" — bridges months when needed. Year is
+  # dropped for the compact stream; the date alone is enough context.
+  def label
+    if start_date.month == end_date.month
+      "#{start_date.strftime("%b %-d")} – #{end_date.strftime("%-d")}"
+    else
+      "#{start_date.strftime("%b %-d")} – #{end_date.strftime("%b %-d")}"
+    end
+  end
+
   def days(today: Date.current)
-    (-6..0).map do |offset|
-      date = today + offset
-      build_day(date)
+    by_date = blocks.group_by { |b| b.starts_at.in_time_zone.to_date }
+    (start_date..end_date).map do |date|
+      day_blocks = by_date[date] || []
+      total = day_blocks.sum(&:duration)
+      Day.new(
+        date: date,
+        label: DAY_LABELS[date.wday],
+        total_seconds: total,
+        stack: stack_for(day_blocks, total),
+        in_future: date > today
+      )
     end
   end
 
   private
-
-  def build_day(date)
-    range = date.beginning_of_day...(date + 1).beginning_of_day
-    day_blocks = blocks.select { |b| range.cover?(b.starts_at) }
-    total = day_blocks.sum(&:duration)
-
-    Day.new(
-      date: date,
-      label: DAY_LABELS[date.wday],
-      total_seconds: total,
-      stack: stack_for(day_blocks, total)
-    )
-  end
 
   # Quadrant fractions in reverse canonical order (so q1 stacks on top, as in
   # the macOS chart), skipping empties.

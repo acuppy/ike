@@ -91,12 +91,13 @@ class Block < ApplicationRecord
     day_range = date.beginning_of_day.in_time_zone..date.end_of_day.in_time_zone
     day = DayLog.new(user.blocks.between(day_range.begin, day_range.end).chronological.to_a)
 
-    now = Time.zone.now
-    week = WeekLog.new(user.blocks.between((now - 6.days).beginning_of_day, now.end_of_day).chronological.to_a)
-
     Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "day-top-#{date.iso8601}",    partial: "dashboard/day_top",    locals: { day: day, date: date })
     Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "day-bottom-#{date.iso8601}", partial: "dashboard/day_bottom", locals: { day: day, date: date })
-    Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "week-chart",                 partial: "weeks/chart",          locals: { week: week })
+
+    week_start = date.beginning_of_week(:sunday)
+    week_range = week_start.beginning_of_day.in_time_zone..(week_start + 6.days).end_of_day.in_time_zone
+    week = WeekLog.new(user.blocks.between(week_range.begin, week_range.end).chronological.to_a, start_date: week_start)
+    Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "week-#{week_start.iso8601}", partial: "weeks/week", locals: { week: week })
 
     month_date = date.beginning_of_month
     month_range = MonthLog.grid_range(month_date)
