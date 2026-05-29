@@ -79,8 +79,10 @@ class Block < ApplicationRecord
     )
   end
 
-  # Re-renders the today aggregate sections and the week chart from this
-  # user's current state and pushes them to the stream.
+  # Re-renders the today aggregate sections, the week chart, and the month
+  # grid for the month this block falls in, and pushes them to the stream.
+  # The month grid's DOM id is scoped to its year-month so tabs viewing a
+  # different month silently ignore the broadcast.
   def broadcast_aggregates
     return unless user # cascading destroy may have removed the user already
 
@@ -91,5 +93,10 @@ class Block < ApplicationRecord
     Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "today-top",    partial: "dashboard/today_top",    locals: { day: day })
     Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "today-bottom", partial: "dashboard/today_bottom", locals: { day: day })
     Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "week-chart",   partial: "weeks/chart",            locals: { week: week })
+
+    month_date = starts_at.to_date.beginning_of_month
+    month_range = MonthLog.grid_range(month_date)
+    month = MonthLog.new(user.blocks.between(month_range.begin, month_range.end).chronological.to_a, month: month_date)
+    Turbo::StreamsChannel.broadcast_replace_to(user_stream, target: "month-grid-#{month.year_month}", partial: "months/calendar", locals: { month: month })
   end
 end

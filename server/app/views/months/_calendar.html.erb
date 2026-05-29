@@ -1,0 +1,33 @@
+<%# Calendar grid for `month` (a MonthLog). DOM id scoped to the year-month so
+    broadcasts for one month don't clobber a tab viewing a different one. %>
+<div id="month-grid-<%= month.year_month %>">
+  <div class="grid grid-cols-7 mb-2">
+    <% MonthLog::WEEKDAY_LABELS.each do |label| %>
+      <div class="text-center text-xs font-medium text-gray-500 py-1"><%= label %></div>
+    <% end %>
+  </div>
+
+  <div class="grid grid-cols-7 gap-1">
+    <% month.weeks.each do |week| %>
+      <% week.each do |day| %>
+        <%
+          fill = if day.in_month && day.has_color?
+                   "background-color: #{day.majority.color}40;"
+                 else
+                   "background-color: #f9fafb;"
+                 end
+        %>
+        <div class="aspect-square rounded-md p-2 flex flex-col" style="<%= fill %>">
+          <span class="text-sm font-medium <%= day.in_month ? "text-gray-900" : "text-gray-300" %>">
+            <%= day.date.day %>
+          </span>
+          <% if day.in_month && day.has_color? %>
+            <span class="mt-auto self-end inline-flex items-center gap-1 text-xs text-gray-600">
+              <span class="w-1.5 h-1.5 rounded-full" style="background-color: <%= day.majority.color %>"></span>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

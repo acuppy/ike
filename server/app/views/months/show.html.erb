@@ -1,0 +1,26 @@
+<% content_for :title, "#{@month.label} · Ike" %>
+
+<%= turbo_stream_from "user_#{current_user.id}_blocks" %>
+
+<div class="flex items-center justify-between mb-6">
+  <h1 class="text-xl font-bold"><%= @month.label %></h1>
+  <div class="flex items-center gap-1 text-sm">
+    <%= link_to "‹", month_path(date: @month.previous_month.strftime("%Y-%m")),
+          class: "px-3 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100" %>
+    <%= link_to "Today", month_path,
+          class: "px-3 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100" %>
+    <%= link_to "›", month_path(date: @month.next_month.strftime("%Y-%m")),
+          class: "px-3 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100" %>
+  </div>
+</div>
+
+<%= render "calendar", month: @month %>
+
+<div class="mt-6 flex flex-wrap gap-4">
+  <% Quadrant.working.each do |q| %>
+    <div class="flex items-center gap-1.5 text-xs text-gray-500">
+      <span class="w-2 h-2 rounded-full" style="background-color: <%= q.color %>"></span>
+      <%= q.label %>
+    </div>
+  <% end %>
+</div>
