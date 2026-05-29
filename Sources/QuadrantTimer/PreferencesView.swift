@@ -10,15 +10,16 @@ struct PreferencesView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
+            // Launch at login — header removed; the toggle + helper text speak
+            // for themselves.
             VStack(alignment: .leading, spacing: 8) {
-                Text("Startup")
-                    .font(.title3.bold())
                 Toggle("Launch Ike at login", isOn: Binding(
                     get: { loginItem.isEnabled },
                     set: { loginItem.setEnabled($0) }
                 ))
                 .toggleStyle(.switch)
                 .controlSize(.small)
+                .tint(.blue)
                 Text("Ike will start automatically when you log in to your Mac.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -26,9 +27,8 @@ struct PreferencesView: View {
 
             Divider()
 
+            // Block duration — header removed.
             VStack(alignment: .leading, spacing: 8) {
-                Text("Timer")
-                    .font(.title3.bold())
                 HStack {
                     Text("Block duration")
                     Spacer()
@@ -48,15 +48,7 @@ struct PreferencesView: View {
 
             Divider()
 
-            ServerSection(
-                serverSettings: serverSettings,
-                blockSyncer: blockSyncer,
-                onConnect: onConnect,
-                onDisconnect: onDisconnect
-            )
-
-            Divider()
-
+            // Working Hours — keeps its header since each day row needs context.
             VStack(alignment: .leading, spacing: 8) {
                 Text("Working Hours")
                     .font(.title3.bold())
@@ -70,6 +62,16 @@ struct PreferencesView: View {
                     DayRow(day: day, settings: settings)
                 }
             }
+
+            Divider()
+
+            // Server — moved to the bottom, header removed.
+            ServerSection(
+                serverSettings: serverSettings,
+                blockSyncer: blockSyncer,
+                onConnect: onConnect,
+                onDisconnect: onDisconnect
+            )
         }
         .padding(20)
         .frame(width: 460)
@@ -84,9 +86,6 @@ private struct ServerSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Server")
-                .font(.title3.bold())
-
             HStack {
                 Text("Server URL")
                 Spacer()
@@ -161,37 +160,61 @@ private struct DayRow: View {
             }
             .toggleStyle(.switch)
             .controlSize(.small)
+            .tint(.blue)
 
-            DatePicker("", selection: Binding(
-                get: { dateFromMinutes(schedule.startMinutes) },
-                set: { settings.setSchedule(.init(enabled: schedule.enabled, startMinutes: minutesFromDate($0), endMinutes: schedule.endMinutes), for: day) }
-            ), displayedComponents: .hourAndMinute)
-                .labelsHidden()
-                .disabled(!schedule.enabled)
+            MinuteSlotPicker(minutes: Binding(
+                get: { schedule.startMinutes },
+                set: { settings.setSchedule(.init(enabled: schedule.enabled, startMinutes: $0, endMinutes: schedule.endMinutes), for: day) }
+            ))
+            .disabled(!schedule.enabled)
 
             Text("→")
                 .foregroundStyle(.secondary)
 
-            DatePicker("", selection: Binding(
-                get: { dateFromMinutes(schedule.endMinutes) },
-                set: { settings.setSchedule(.init(enabled: schedule.enabled, startMinutes: schedule.startMinutes, endMinutes: minutesFromDate($0)), for: day) }
-            ), displayedComponents: .hourAndMinute)
-                .labelsHidden()
-                .disabled(!schedule.enabled)
+            MinuteSlotPicker(minutes: Binding(
+                get: { schedule.endMinutes },
+                set: { settings.setSchedule(.init(enabled: schedule.enabled, startMinutes: schedule.startMinutes, endMinutes: $0), for: day) }
+            ))
+            .disabled(!schedule.enabled)
 
             Spacer()
         }
         .opacity(schedule.enabled ? 1.0 : 0.6)
     }
+}
 
-    private func dateFromMinutes(_ minutes: Int) -> Date {
-        let cal = Calendar.current
-        let start = cal.startOfDay(for: Date())
-        return cal.date(byAdding: .minute, value: minutes, to: start) ?? start
+// Dropdown of 48 half-hour slots from 12:00 AM through 11:30 PM. The bound
+// value is minutes-from-midnight; on display we snap to the nearest slot so
+// pre-existing schedules with off-grid minutes (e.g. 8:15) still match a
+// menu option and the menu doesn't render with no selection.
+private struct MinuteSlotPicker: View {
+    @Binding var minutes: Int
+
+    var body: some View {
+        Picker("", selection: Binding(
+            get: { snap(minutes) },
+            set: { minutes = $0 }
+        )) {
+            ForEach(0..<48, id: \.self) { slot in
+                let m = slot * 30
+                Text(formatTime(m)).tag(m)
+            }
+        }
+        .labelsHidden()
+        .pickerStyle(.menu)
+        .frame(width: 100)
     }
 
-    private func minutesFromDate(_ date: Date) -> Int {
-        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
-        return (comps.hour ?? 0) * 60 + (comps.minute ?? 0)
+    private func snap(_ m: Int) -> Int {
+        let rounded = ((m + 15) / 30) * 30
+        return min(max(rounded, 0), 23 * 60 + 30)
+    }
+
+    private func formatTime(_ m: Int) -> String {
+        let h24 = m / 60
+        let mins = m % 60
+        let h12 = h24 == 0 ? 12 : (h24 > 12 ? h24 - 12 : h24)
+        let suffix = h24 < 12 ? "AM" : "PM"
+        return String(format: "%d:%02d %@", h12, mins, suffix)
     }
 }
