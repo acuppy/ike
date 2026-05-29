@@ -1,6 +1,7 @@
-<%# Aggregate region above the entries list — trending banner + header +
-    timeline. Rebroadcast whole on any block change for `day.user`. %>
-<div id="today-top">
+<%# Aggregate region above the entries list — trending banner + timeline.
+    DOM id is scoped to the date so broadcasts for one day don't clobber a
+    tab viewing a different day. The date header lives in show.html.erb. %>
+<div id="day-top-<%= date.iso8601 %>">
   <% if (trend = day.trend) %>
     <div class="flex items-center gap-3 rounded-xl px-4 py-3 mb-6"
          style="background-color: <%= trend.tint ? "#{trend.tint}1f" : "#f3f4f6" %>">
@@ -12,15 +13,10 @@
     </div>
   <% end %>
 
-  <div class="flex items-baseline justify-between mb-4">
-    <h1 class="text-xl font-bold">Today's blocks</h1>
-    <span class="text-sm text-gray-500"><%= Date.current.strftime("%a, %b %-d") %></span>
-  </div>
-
   <% if day.empty? %>
     <div class="text-center py-20 text-gray-400">
       <div class="text-4xl mb-3">▦</div>
-      <p>No blocks logged yet today</p>
+      <p>No blocks logged on <%= date.strftime("%b %-d") %></p>
     </div>
   <% else %>
     <div class="mb-1 flex gap-px h-9 rounded-lg overflow-hidden">

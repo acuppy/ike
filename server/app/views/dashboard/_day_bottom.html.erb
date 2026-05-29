@@ -1,7 +1,7 @@
 <%# Aggregate region below the entries list — per-quadrant totals. %>
-<div id="today-bottom">
+<div id="day-bottom-<%= date.iso8601 %>">
   <% if day.empty? %>
-    <%# nothing to render — empty state lives in #today-top %>
+    <%# nothing to render — empty state lives in #day-top %>
   <% else %>
     <div class="border-t border-gray-200 pt-4 space-y-1.5">
       <% day.quadrant_totals.each do |total| %>
