@@ -1,11 +1,8 @@
-<% content_for :title, "Weekly trends · Ike" %>
-<%# Override the default page width — this page wants a sidebar, so we need
-    more breathing room than the standard max-w-3xl. %>
-<% content_for :main_class, "max-w-5xl" %>
+<% content_for :title, "Weekly · Ike" %>
 
 <%= turbo_stream_from "user_#{current_user.id}_blocks" %>
 
-<h1 class="text-xl font-bold mb-6">Weekly trends</h1>
+<h1 class="text-xl font-bold mb-6">Weekly</h1>
 
 <div class="lg:flex lg:gap-6 lg:items-start">
   <div class="lg:flex-1 lg:min-w-0">

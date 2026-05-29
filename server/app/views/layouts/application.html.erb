@@ -31,9 +31,9 @@
             Ike
           <% end %>
           <nav class="flex items-center gap-4 text-sm">
-            <%= nav_link "Today", today_path %>
-            <%= nav_link "This week", week_path %>
-            <%= nav_link "This month", month_path %>
+            <%= nav_link "Daily", today_path %>
+            <%= nav_link "Weekly", week_path %>
+            <%= nav_link "Monthly", month_path %>
             <%= nav_link "All activity", blocks_path %>
           </nav>
           <div class="ml-auto flex items-center gap-3 text-sm text-gray-500">
@@ -45,7 +45,7 @@
       </header>
     <% end %>
 
-    <main class="<%= content_for?(:main_class) ? yield(:main_class) : "max-w-3xl" %> mx-auto px-5 py-8">
+    <main class="<%= content_for?(:main_class) ? yield(:main_class) : "max-w-5xl" %> mx-auto px-5 py-8">
       <% flash.each do |type, message| %>
         <div class="mb-4 rounded-lg px-4 py-2 text-sm <%= type.to_s == "alert" ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700" %>">
           <%= message %>

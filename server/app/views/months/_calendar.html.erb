@@ -11,23 +11,28 @@
     <% month.weeks.each do |week| %>
       <% week.each do |day| %>
         <%
-          fill = if day.in_month && day.has_color?
-                   "background-color: #{day.majority.color}40;"
+          colored = day.in_month && day.has_color?
+          fill = if colored
+                   "background-color: #{day.majority.color};"
+                 elsif day.in_month
+                   "background-color: #f3f4f6;" # gray-100 — visible against the page bg
                  else
-                   "background-color: #f9fafb;"
+                   "background-color: #f9fafb;" # gray-50 — blends with page bg for adjacent-month days
                  end
+          date_class = if colored
+                         "text-white" # readable on top of the saturated quadrant color
+                       elsif day.in_month
+                         "text-gray-900"
+                       else
+                         "text-gray-300"
+                       end
         %>
         <%= link_to today_path(date: day.date.iso8601),
               class: "aspect-square rounded-md p-2 flex flex-col hover:opacity-90 transition",
               style: fill do %>
-          <span class="text-sm font-medium <%= day.in_month ? "text-gray-900" : "text-gray-300" %>">
+          <span class="text-sm font-medium <%= date_class %>">
             <%= day.date.day %>
           </span>
-          <% if day.in_month && day.has_color? %>
-            <span class="mt-auto self-end inline-flex items-center gap-1 text-xs text-gray-600">
-              <span class="w-1.5 h-1.5 rounded-full" style="background-color: <%= day.majority.color %>"></span>
-            </span>
-          <% end %>
         <% end %>
       <% end %>
     <% end %>
