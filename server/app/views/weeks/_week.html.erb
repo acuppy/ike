@@ -1,0 +1,15 @@
+<%# One Sun-Sat row: label on the left, 7 day cells. Columns line up with
+    the shared header row in show.html.erb so patterns ("every Friday is…")
+    read vertically. DOM id scoped to the Sunday so broadcasts only update
+    the matching week. %>
+<div id="week-<%= week.start_date.iso8601 %>" class="flex items-stretch gap-2">
+  <div class="w-28 shrink-0 text-sm text-gray-600 self-center"><%= week.label %></div>
+  <% week.days.each do |day| %>
+    <%= link_to today_path(date: day.date.iso8601),
+          class: "flex-1 h-24 rounded overflow-hidden bg-gray-100 hover:opacity-75 transition flex flex-col justify-end #{day.in_future ? "opacity-40" : ""}" do %>
+      <% day.stack.each do |piece| %>
+        <div style="height: <%= (piece.fraction * 100).round(2) %>%; background-color: <%= piece.quadrant.color %>;"></div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
