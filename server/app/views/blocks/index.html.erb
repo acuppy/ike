@@ -10,12 +10,7 @@
 <% else %>
   <% @blocks.group_by { |b| b.starts_at.to_date }.each do |date, blocks| %>
     <section class="mb-6">
-      <div class="flex items-baseline justify-between mb-1 px-3">
-        <h2 class="text-sm font-semibold text-gray-700"><%= date.strftime("%A, %b %-d") %></h2>
-        <span class="text-xs text-gray-400 font-mono">
-          <%= format_duration(blocks.sum(&:duration)) %> · <%= blocks.size %> blocks
-        </span>
-      </div>
+      <h2 class="text-sm font-semibold text-gray-700 mb-1 px-3"><%= date.strftime("%A, %b %-d") %></h2>
       <div class="divide-y divide-gray-100">
         <% blocks.each do |block| %>
           <%= render "blocks/block", block: block %>
