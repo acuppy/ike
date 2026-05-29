@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # --- Web UI ---------------------------------------------------------------
   get "today" => "dashboard#show", as: :today
   get "week" => "weeks#show", as: :week
+  get "month" => "months#show", as: :month
   resources :blocks, only: [:index, :edit, :update, :destroy]
 
   # --- JSON API (for the macOS widget and future iOS app) -------------------
