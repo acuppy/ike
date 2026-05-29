@@ -1,13 +1,16 @@
 import SwiftUI
 
 extension Quadrant {
+    // Outcome-focused palette (Tailwind Refined hues): Q2 (target) emerald,
+    // Q4 (regret) rose, Q3 (interruption warning) amber, Q1 (firefighting —
+    // neutralized) slate. Mirrors server/app/models/quadrant.rb.
     var color: Color {
         switch self {
-        case .q1: .red
-        case .q2: .green
-        case .q3: .orange
-        case .q4: .gray
-        case .breakTime: .blue
+        case .q1:        Color(red: 0.580, green: 0.639, blue: 0.722) // slate-400  #94a3b8
+        case .q2:        Color(red: 0.063, green: 0.725, blue: 0.506) // emerald-500 #10b981
+        case .q3:        Color(red: 0.961, green: 0.620, blue: 0.043) // amber-500   #f59e0b
+        case .q4:        Color(red: 0.957, green: 0.247, blue: 0.369) // rose-500    #f43f5e
+        case .breakTime: Color(red: 0.055, green: 0.647, blue: 0.914) // sky-500     #0ea5e9
         }
     }
 }
