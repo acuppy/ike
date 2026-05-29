@@ -3,7 +3,10 @@
 <%= turbo_stream_from "user_#{current_user.id}_blocks" %>
 
 <div class="flex items-center justify-between mb-6">
-  <h1 class="text-xl font-bold"><%= @month.label %></h1>
+  <h1 class="text-xl font-bold">
+    Monthly
+    <span class="ml-2 text-sm text-gray-400 font-normal"><%= @month.label %></span>
+  </h1>
   <div class="flex items-center gap-1 text-sm">
     <%= link_to "‹", month_path(date: @month.previous_month.strftime("%Y-%m")),
           class: "px-3 py-1 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100" %>

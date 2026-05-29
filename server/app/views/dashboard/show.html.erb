@@ -11,10 +11,8 @@
 
 <div class="flex items-center justify-between mb-6">
   <h1 class="text-xl font-bold">
-    <%= is_today ? "Today" : @date.strftime("%A, %B %-d") %>
-    <% if is_today %>
-      <span class="ml-2 text-sm text-gray-400 font-normal"><%= @date.strftime("%a, %b %-d") %></span>
-    <% end %>
+    Today
+    <span class="ml-2 text-sm text-gray-400 font-normal"><%= @date.strftime("%a, %b %-d") %></span>
   </h1>
   <div class="flex items-center gap-1 text-sm">
     <%= link_to "‹", today_path(date: (@date - 1.day).iso8601),
