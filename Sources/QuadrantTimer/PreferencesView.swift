@@ -50,10 +50,12 @@ struct PreferencesView: View {
 
             Divider()
 
-            // Working Hours — keeps its header since each day row needs context.
+            // Working Hours — a small section label since multiple day rows
+            // sit below. Body weight + semibold to match the visual rhythm
+            // of the inline control labels elsewhere on this screen.
             VStack(alignment: .leading, spacing: 8) {
                 Text("Working Hours")
-                    .font(.title3.bold())
+                    .font(.body.weight(.semibold))
                 Text("Outside these hours, the timer pauses and prompts are suppressed.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -298,14 +300,11 @@ private struct CalendarList: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Divider()
-
             // Master switch — on, read everything; off, reveal the
             // per-calendar mute list. Disabled selections are preserved
             // either way so flipping back and forth doesn't lose state.
             HStack {
                 Text("All calendars")
-                    .font(.caption)
                 Spacer()
                 Toggle("", isOn: $calendarStore.useAllCalendars)
                     .labelsHidden()
