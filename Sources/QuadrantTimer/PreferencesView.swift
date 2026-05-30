@@ -251,7 +251,7 @@ private struct CalendarSection: View {
                 }
                 Spacer()
                 if calendarStore.isAuthorized {
-                    Text("\(calendarStore.calendarCount) calendar\(calendarStore.calendarCount == 1 ? "" : "s")")
+                    Text(headerCountLabel)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 } else if calendarStore.authorizationStatus == .denied
@@ -272,7 +272,89 @@ private struct CalendarSection: View {
             Text("Ike uses your calendars to pre-fill block notes with the event you were in. Add Google calendars in System Settings → Internet Accounts and they show up here. Read-only; titles never leave your machine on their own.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+
+            if calendarStore.isAuthorized && !calendarStore.allCalendars.isEmpty {
+                CalendarList(calendarStore: calendarStore)
+            }
         }
+    }
+
+    private var headerCountLabel: String {
+        if calendarStore.useAllCalendars {
+            let n = calendarStore.calendarCount
+            return "\(n) calendar\(n == 1 ? "" : "s")"
+        } else {
+            return "\(calendarStore.enabledCalendars.count) of \(calendarStore.calendarCount) enabled"
+        }
+    }
+}
+
+// List of available calendars grouped by source (Google account, iCloud,
+// etc.) — each row a toggle that adds/removes from the disabled-IDs set.
+// Muted calendars are excluded at fetch time so their events never reach
+// the prompt.
+private struct CalendarList: View {
+    @Bindable var calendarStore: CalendarStore
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Divider()
+
+            // Master switch — on, read everything; off, reveal the
+            // per-calendar mute list. Disabled selections are preserved
+            // either way so flipping back and forth doesn't lose state.
+            HStack {
+                Text("All calendars")
+                    .font(.caption)
+                Spacer()
+                Toggle("", isOn: $calendarStore.useAllCalendars)
+                    .labelsHidden()
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+                    .tint(.blue)
+            }
+
+            if !calendarStore.useAllCalendars {
+                ForEach(grouped(), id: \.0) { source, calendars in
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(source)
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(.secondary)
+                            .padding(.top, 4)
+                        ForEach(calendars, id: \.calendarIdentifier) { cal in
+                            HStack(spacing: 6) {
+                                Circle()
+                                    .fill(Color(cgColor: cal.cgColor))
+                                    .frame(width: 8, height: 8)
+                                Text(cal.title)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                    .truncationMode(.middle)
+                                Spacer()
+                                Toggle("", isOn: Binding(
+                                    get: { calendarStore.isEnabled(cal) },
+                                    set: { calendarStore.setEnabled($0, for: cal) }
+                                ))
+                                .labelsHidden()
+                                .toggleStyle(.switch)
+                                .controlSize(.small)
+                                .tint(.blue)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Group calendars by source.title (e.g. "iCloud", "Google", or the
+    // Google account email when there are multiple). Sources sorted A→Z so
+    // the list is stable across launches.
+    private func grouped() -> [(String, [EKCalendar])] {
+        let dict = Dictionary(grouping: calendarStore.allCalendars) { $0.source.title }
+        return dict
+            .map { ($0.key, $0.value.sorted { $0.title < $1.title }) }
+            .sorted { $0.0 < $1.0 }
     }
 }
 
