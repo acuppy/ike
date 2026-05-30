@@ -6,6 +6,11 @@ final class PromptController {
     private var panel: NSPanel?
     private(set) var lastQuadrant: Quadrant?
 
+    // Calendar context (event titles overlapping each block) lights up the
+    // prompt and pre-fills its note. Optional so the coordinator can wire
+    // it lazily and the controller stays testable without EventKit.
+    var calendarStore: CalendarStore?
+
     var onResolved: ((Quadrant, String, Bool, Date, Date) -> Void)?
 
     func present(blockStart: Date, blockEnd: Date) {
@@ -13,13 +18,16 @@ final class PromptController {
 
         NSSound(named: "Glass")?.play()
 
+        let calendarContext = calendarStore?.context(for: blockStart, end: blockEnd)
+
         let view = PromptView(
             lastQuadrant: lastQuadrant,
+            calendarContext: calendarContext,
             onSubmit: { [weak self] q, note in
                 self?.resolve(quadrant: q, note: note, auto: false, start: blockStart, end: blockEnd)
             },
-            onAutoLog: { [weak self] q in
-                self?.resolve(quadrant: q, note: "", auto: true, start: blockStart, end: blockEnd)
+            onAutoLog: { [weak self] q, note in
+                self?.resolve(quadrant: q, note: note, auto: true, start: blockStart, end: blockEnd)
             }
         )
 

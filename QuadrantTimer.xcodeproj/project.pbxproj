@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		09AEA4BC12A637FF0D262690 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4577E3807549970C95AFE1E5 /* Shortcuts.swift */; };
 		168D0D6A027D23400535B8DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F33D1EB75C58A7B2DEF012CB /* Assets.xcassets */; };
+		231D80F25DE0AE2C55249C2A /* CalendarContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4272E1FDDCF6653BD383CC95 /* CalendarContext.swift */; };
 		2633B01DDE71D18A18C1FE98 /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430AF2E0F1A7BB93155140C5 /* LogView.swift */; };
 		2BFD02909FD5305FDEF42B12 /* ScheduleMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */; };
 		4179ABD4949DB9CC1173EB85 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */; };
@@ -17,6 +18,7 @@
 		7FD7F68C1DB8032FCCC2FA19 /* BlockSyncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F03D19BC0358B416972EE0 /* BlockSyncer.swift */; };
 		7FEB978D88ED51DA4A551FF5 /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */; };
 		936B6480FEF50F3A3D5F2325 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD3B7AA79275B90E8788BE /* Quadrant.swift */; };
+		98D57EAF893DFF23DC7704C9 /* CalendarStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98489561FB972D111970089B /* CalendarStore.swift */; };
 		9A48862752583D71D5597F5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF32B017B76E422CD357D22 /* AppDelegate.swift */; };
 		9C00E9A42E0055277B704F85 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3B40EFE4FA0DD0247F1DE0 /* KeychainStore.swift */; };
 		A6E7C321C6B92AA4FC116BD7 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */; };
@@ -40,6 +42,7 @@
 		2835903680E6E77D8030F7AC /* LogWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWindowController.swift; sourceTree = "<group>"; };
 		2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakPromptView.swift; sourceTree = "<group>"; };
 		3C30DED5E76D060D3B04EABD /* WeeklyWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWindowController.swift; sourceTree = "<group>"; };
+		4272E1FDDCF6653BD383CC95 /* CalendarContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarContext.swift; sourceTree = "<group>"; };
 		430AF2E0F1A7BB93155140C5 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		4577E3807549970C95AFE1E5 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		461648B3931DF610212A08C4 /* PromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptController.swift; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 		7EA60BDA02033AFE9D2CF74B /* ScheduleMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMonitor.swift; sourceTree = "<group>"; };
 		7EB3F37CA28CBE9E792D9E87 /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 		97F03D19BC0358B416972EE0 /* BlockSyncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockSyncer.swift; sourceTree = "<group>"; };
+		98489561FB972D111970089B /* CalendarStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStore.swift; sourceTree = "<group>"; };
 		A03E98ED8CC90501561B94D9 /* QuadrantTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuadrantTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAFD3B7AA79275B90E8788BE /* Quadrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quadrant.swift; sourceTree = "<group>"; };
 		B054F43B1B6EBB6E7146F000 /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
@@ -108,6 +112,8 @@
 				542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */,
 				2D402D444D1EE0DAF6892382 /* BreakPromptView.swift */,
 				6693487742313D3CE3F02060 /* BreakState.swift */,
+				4272E1FDDCF6653BD383CC95 /* CalendarContext.swift */,
+				98489561FB972D111970089B /* CalendarStore.swift */,
 				BB3B40EFE4FA0DD0247F1DE0 /* KeychainStore.swift */,
 				0AFA6200873013C421437ADB /* LoginItem.swift */,
 				430AF2E0F1A7BB93155140C5 /* LogView.swift */,
@@ -211,6 +217,8 @@
 				C96BEF53890EA1591ACB9861 /* BreakPromptController.swift in Sources */,
 				57902EF1423541CFB2A91EE9 /* BreakPromptView.swift in Sources */,
 				E064B096F16C94AA8B3E832C /* BreakState.swift in Sources */,
+				231D80F25DE0AE2C55249C2A /* CalendarContext.swift in Sources */,
+				98D57EAF893DFF23DC7704C9 /* CalendarStore.swift in Sources */,
 				9C00E9A42E0055277B704F85 /* KeychainStore.swift in Sources */,
 				2633B01DDE71D18A18C1FE98 /* LogView.swift in Sources */,
 				BAEED18F73279C4370197162 /* LogWindowController.swift in Sources */,
