@@ -75,10 +75,12 @@ final class AppCoordinator {
     let loginItem = LoginItem()
     let serverSettings = ServerSettings()
     let blockSyncer: BlockSyncer
+    let calendarStore = CalendarStore.shared
 
     init() {
         scheduleMonitor = ScheduleMonitor(settings: scheduleSettings)
         blockSyncer = BlockSyncer(settings: serverSettings)
+        prompt.calendarStore = calendarStore
 
         URLEventBridge.shared.setHandler { [weak self] url in
             self?.handleURL(url)
@@ -182,6 +184,7 @@ final class AppCoordinator {
             loginItem: loginItem,
             serverSettings: serverSettings,
             blockSyncer: blockSyncer,
+            calendarStore: calendarStore,
             onConnect: { [weak self] in self?.openServerSignIn() },
             onDisconnect: { [weak self] in self?.disconnectFromServer() }
         )

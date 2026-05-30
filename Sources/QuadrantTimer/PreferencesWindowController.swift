@@ -11,6 +11,7 @@ final class PreferencesWindowController {
         loginItem: LoginItem,
         serverSettings: ServerSettings,
         blockSyncer: BlockSyncer,
+        calendarStore: CalendarStore,
         onConnect: @escaping () -> Void,
         onDisconnect: @escaping () -> Void
     ) {
@@ -25,6 +26,7 @@ final class PreferencesWindowController {
             loginItem: loginItem,
             serverSettings: serverSettings,
             blockSyncer: blockSyncer,
+            calendarStore: calendarStore,
             onConnect: onConnect,
             onDisconnect: onDisconnect
         ))

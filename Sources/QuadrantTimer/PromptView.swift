@@ -2,8 +2,9 @@ import SwiftUI
 
 struct PromptView: View {
     let lastQuadrant: Quadrant?
+    let calendarContext: CalendarContext?
     let onSubmit: (Quadrant, String) -> Void
-    let onAutoLog: (Quadrant) -> Void
+    let onAutoLog: (Quadrant, String) -> Void
 
     @State private var selected: Quadrant?
     @State private var note: String = ""
@@ -16,6 +17,9 @@ struct PromptView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             header
+            if let context = calendarContext, !context.isEmpty {
+                calendarBanner(context)
+            }
             grid
             TextField("Note (optional)", text: $note)
                 .textFieldStyle(.roundedBorder)
@@ -27,6 +31,11 @@ struct PromptView: View {
         .frame(width: 460)
         .onAppear {
             selected = lastQuadrant
+            // Pre-fill the note with overlapping calendar event titles, if
+            // any. Editable; user can clear or rewrite before submitting.
+            if let context = calendarContext, !context.isEmpty {
+                note = context.joinedTitles
+            }
             noteFocused = true
         }
         .onChange(of: note) { _, _ in pauseCountdown() }
@@ -34,6 +43,25 @@ struct PromptView: View {
         .task {
             await runCountdown()
         }
+    }
+
+    private func calendarBanner(_ context: CalendarContext) -> some View {
+        HStack(alignment: .top, spacing: 6) {
+            Image(systemName: "calendar")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Text("You were in: ")
+                .foregroundStyle(.secondary) +
+            Text(context.joinedTitles)
+                .foregroundStyle(.primary)
+        }
+        .font(.caption)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color.secondary.opacity(0.08))
+        )
     }
 
     private var header: some View {
@@ -93,7 +121,7 @@ struct PromptView: View {
                 .opacity(0)
             }
             Button("") {
-                onAutoLog(selected ?? lastQuadrant ?? .q2)
+                onAutoLog(selected ?? lastQuadrant ?? .q2, note.trimmingCharacters(in: .whitespacesAndNewlines))
             }
             .keyboardShortcut(.cancelAction)
             .frame(width: 0, height: 0)
@@ -118,7 +146,7 @@ struct PromptView: View {
             secondsRemaining -= 1
         }
         guard isCountingDown else { return }
-        onAutoLog(selected ?? lastQuadrant ?? .q2)
+        onAutoLog(selected ?? lastQuadrant ?? .q2, note.trimmingCharacters(in: .whitespacesAndNewlines))
     }
 }
 

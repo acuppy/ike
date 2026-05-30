@@ -22,6 +22,10 @@
 	<string>Ike</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Ike reads events from your calendars only to help label tracked blocks. Event titles are used locally to pre-fill notes you can edit before saving — they're never sent anywhere on their own.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Ike reads events from your calendars only to help label tracked blocks. Event titles are used locally to pre-fill notes you can edit before saving — they're never sent anywhere on their own.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

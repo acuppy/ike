@@ -1,10 +1,12 @@
 import SwiftUI
+import EventKit
 
 struct PreferencesView: View {
     @Bindable var settings: ScheduleSettings
     @Bindable var loginItem: LoginItem
     @Bindable var serverSettings: ServerSettings
     @Bindable var blockSyncer: BlockSyncer
+    @Bindable var calendarStore: CalendarStore
     let onConnect: () -> Void
     let onDisconnect: () -> Void
 
@@ -62,6 +64,10 @@ struct PreferencesView: View {
                     DayRow(day: day, settings: settings)
                 }
             }
+
+            Divider()
+
+            CalendarSection(calendarStore: calendarStore)
 
             Divider()
 
@@ -218,3 +224,55 @@ private struct MinuteSlotPicker: View {
         return String(format: "%d:%02d %@", h12, mins, suffix)
     }
 }
+
+private struct CalendarSection: View {
+    @Bindable var calendarStore: CalendarStore
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                if calendarStore.isAuthorized {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundStyle(.green)
+                    Text("Calendar access granted")
+                        .font(.caption)
+                } else if calendarStore.authorizationStatus == .denied
+                            || calendarStore.authorizationStatus == .restricted {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Text("Calendar access denied")
+                        .font(.caption)
+                } else {
+                    Image(systemName: "circle")
+                        .foregroundStyle(.secondary)
+                    Text("Calendar access not granted")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                if calendarStore.isAuthorized {
+                    Text("\(calendarStore.calendarCount) calendar\(calendarStore.calendarCount == 1 ? "" : "s")")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                } else if calendarStore.authorizationStatus == .denied
+                            || calendarStore.authorizationStatus == .restricted {
+                    Button("Open System Settings") {
+                        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Calendars") {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }
+                    .controlSize(.small)
+                } else {
+                    Button("Connect calendars") {
+                        Task { await calendarStore.requestAccess() }
+                    }
+                    .controlSize(.small)
+                }
+            }
+            Text("Ike uses your calendars to pre-fill block notes with the event you were in. Add Google calendars in System Settings → Internet Accounts and they show up here. Read-only; titles never leave your machine on their own.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+    }
+}
+
