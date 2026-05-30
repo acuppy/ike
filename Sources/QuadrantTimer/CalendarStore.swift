@@ -15,11 +15,24 @@ final class CalendarStore {
     static let shared = CalendarStore()
 
     private let store = EKEventStore()
+    private let defaults = UserDefaults.standard
+    private let disabledKey = "DisabledCalendarIds"
 
     var authorizationStatus: EKAuthorizationStatus
+    // Calendars the user has muted (only consulted when useAllCalendars is
+    // off). Blacklist semantics: any calendar not in this set is read.
+    private(set) var disabledCalendarIds: Set<String>
+    // When true (default), every available calendar is read and the
+    // per-calendar mute list is ignored. Turning this off reveals the
+    // mute list in Preferences.
+    var useAllCalendars: Bool {
+        didSet { defaults.set(useAllCalendars, forKey: "UseAllCalendars") }
+    }
 
     init() {
         self.authorizationStatus = EKEventStore.authorizationStatus(for: .event)
+        self.disabledCalendarIds = Set(defaults.stringArray(forKey: "DisabledCalendarIds") ?? [])
+        self.useAllCalendars = defaults.object(forKey: "UseAllCalendars") as? Bool ?? true
     }
 
     var isAuthorized: Bool {
@@ -31,8 +44,33 @@ final class CalendarStore {
     }
 
     var calendarCount: Int {
-        guard isAuthorized else { return 0 }
-        return store.calendars(for: .event).count
+        allCalendars.count
+    }
+
+    var allCalendars: [EKCalendar] {
+        guard isAuthorized else { return [] }
+        return store.calendars(for: .event)
+    }
+
+    var enabledCalendars: [EKCalendar] {
+        if useAllCalendars {
+            return allCalendars
+        }
+        return allCalendars.filter { isEnabled($0) }
+    }
+
+    func isEnabled(_ calendar: EKCalendar) -> Bool {
+        !disabledCalendarIds.contains(calendar.calendarIdentifier)
+    }
+
+    func setEnabled(_ enabled: Bool, for calendar: EKCalendar) {
+        let id = calendar.calendarIdentifier
+        if enabled {
+            disabledCalendarIds.remove(id)
+        } else {
+            disabledCalendarIds.insert(id)
+        }
+        defaults.set(Array(disabledCalendarIds), forKey: disabledKey)
     }
 
     // Requests full-access permission for events. Safe to call repeatedly —
@@ -50,11 +88,14 @@ final class CalendarStore {
         self.authorizationStatus = EKEventStore.authorizationStatus(for: .event)
     }
 
-    // Returns events overlapping [start, end). All-day events, declined
-    // events, and empty-titled events are filtered out by CalendarContext.
+    // Returns events overlapping [start, end), restricted to calendars the
+    // user hasn't muted. All-day events, declined events, and empty-titled
+    // events are filtered out by CalendarContext.
     func eventsOverlapping(start: Date, end: Date) -> [EKEvent] {
         guard isAuthorized else { return [] }
-        let predicate = store.predicateForEvents(withStart: start, end: end, calendars: nil)
+        let calendars = enabledCalendars
+        guard !calendars.isEmpty else { return [] }
+        let predicate = store.predicateForEvents(withStart: start, end: end, calendars: calendars)
         return store.events(matching: predicate)
     }
 
