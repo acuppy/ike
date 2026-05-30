@@ -5,6 +5,10 @@ import SwiftUI
 final class PromptController {
     private var panel: NSPanel?
     private(set) var lastQuadrant: Quadrant?
+    // The most recently submitted note. When the next prompt's selected
+    // quadrant matches lastQuadrant, this gets pre-filled so the user
+    // doesn't have to retype "still doing X" every block.
+    private(set) var lastNote: String = ""
 
     // Calendar context (event titles overlapping each block) lights up the
     // prompt and pre-fills its note. Optional so the coordinator can wire
@@ -22,6 +26,7 @@ final class PromptController {
 
         let view = PromptView(
             lastQuadrant: lastQuadrant,
+            lastNote: lastNote,
             calendarContext: calendarContext,
             onSubmit: { [weak self] q, note in
                 self?.resolve(quadrant: q, note: note, auto: false, start: blockStart, end: blockEnd)
@@ -59,6 +64,7 @@ final class PromptController {
         panel?.orderOut(nil)
         panel = nil
         lastQuadrant = quadrant
+        lastNote = note
         onResolved?(quadrant, note, auto, start, end)
     }
 }
