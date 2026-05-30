@@ -2,12 +2,18 @@ import SwiftUI
 
 struct PromptView: View {
     let lastQuadrant: Quadrant?
+    let lastNote: String
     let calendarContext: CalendarContext?
     let onSubmit: (Quadrant, String) -> Void
     let onAutoLog: (Quadrant, String) -> Void
 
     @State private var selected: Quadrant?
     @State private var note: String = ""
+    // The most recent value we auto-filled into `note`. When `note` still
+    // equals this, the user hasn't typed — so we can keep auto-updating on
+    // quadrant change. As soon as the user edits, `note != lastAutoFilled`
+    // and we leave it alone.
+    @State private var lastAutoFilled: String = ""
     @State private var secondsRemaining: Int = 10
     @State private var isCountingDown: Bool = true
     @FocusState private var noteFocused: Bool
@@ -31,18 +37,34 @@ struct PromptView: View {
         .frame(width: 460)
         .onAppear {
             selected = lastQuadrant
-            // Pre-fill the note with overlapping calendar event titles, if
-            // any. Editable; user can clear or rewrite before submitting.
-            if let context = calendarContext, !context.isEmpty {
-                note = context.joinedTitles
-            }
+            let suggested = suggestedNote(for: selected)
+            note = suggested
+            lastAutoFilled = suggested
             noteFocused = true
+        }
+        .onChange(of: selected) { _, newSelected in
+            // Only swap the suggested note if the user hasn't typed anything
+            // yet. If they edited the field, we never overwrite their text.
+            guard note == lastAutoFilled else { return }
+            let suggested = suggestedNote(for: newSelected)
+            note = suggested
+            lastAutoFilled = suggested
         }
         .onChange(of: note) { _, _ in pauseCountdown() }
         .background(shortcutButtons)
         .task {
             await runCountdown()
         }
+    }
+
+    // The auto-fill rule: if the user is continuing on the same quadrant
+    // they last submitted, duplicate that note. Otherwise, fall back to the
+    // calendar event description (or empty if there's no overlapping event).
+    private func suggestedNote(for quadrant: Quadrant?) -> String {
+        if let quadrant, let last = lastQuadrant, quadrant == last {
+            return lastNote
+        }
+        return calendarContext?.joinedTitles ?? ""
     }
 
     private func calendarBanner(_ context: CalendarContext) -> some View {
