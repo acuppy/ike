@@ -1,0 +1,28 @@
+<% content_for :title, "Connect Ike · Ike" %>
+
+<div class="max-w-md mx-auto mt-16 text-center">
+  <span class="inline-grid grid-cols-2 gap-0.5 w-12 h-12 mx-auto mb-6">
+    <span class="bg-slate-400 rounded-sm"></span><span class="bg-emerald-500 rounded-sm"></span>
+    <span class="bg-amber-500 rounded-sm"></span><span class="bg-rose-500 rounded-sm"></span>
+  </span>
+
+  <h1 class="text-xl font-bold mb-2">Connect Ike on this Mac</h1>
+  <p class="text-gray-600 mb-8">
+    Click the button to hand off your sign-in to the Ike app.
+    If your browser asks permission to open Ike, allow it.
+  </p>
+
+  <%# Plain anchor — no JS auto-fire. Browsers treat a real click on an
+      a[href="ike://…"] as user activation and reliably hand it to the
+      OS. JS-initiated navigation to custom schemes (without a click) is
+      treated as a tab-jacking attempt and silently dropped by Safari
+      and modern Chrome. %>
+  <%= link_to "Open Ike", @app_url,
+        id: "open-ike",
+        class: "inline-block rounded-lg bg-emerald-500 px-6 py-3 text-white font-semibold shadow-sm hover:bg-emerald-600" %>
+
+  <p class="text-xs text-gray-400 mt-8">
+    Nothing happens? <a href="<%= @app_url %>" class="text-blue-600 hover:underline">Try this direct link</a>.
+    You can close this tab once Ike is connected.
+  </p>
+</div>
