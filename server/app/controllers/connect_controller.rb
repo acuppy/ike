@@ -3,8 +3,11 @@
 #   1. The macOS widget opens GET /connect?return_scheme=ike in the browser.
 #   2. If not signed in, we bounce through /login (magic link) carrying this
 #      URL as return_to so we land back here after sign-in.
-#   3. We redirect to ike://connected?token=…&email=…, which macOS routes
-#      to the app (registered in Info.plist).
+#   3. We render an HTML page with an "Open Ike" button (plain anchor to
+#      the ike:// URL). The user click is what hands off to the OS — a
+#      direct user-initiated navigation gets handled by every browser,
+#      while a server-side 302 to a non-http scheme gets silently dropped
+#      by Safari and modern Chrome.
 class ConnectController < ApplicationController
   ALLOWED_SCHEMES = %w[ike].freeze
 
@@ -20,7 +23,7 @@ class ConnectController < ApplicationController
       return
     end
 
-    redirect_to "#{scheme}://connected?token=#{CGI.escape(current_user.api_token)}&email=#{CGI.escape(current_user.email)}",
-                allow_other_host: true
+    @app_url = "#{scheme}://connected?token=#{CGI.escape(current_user.api_token)}&email=#{CGI.escape(current_user.email)}"
+    render :show
   end
 end
