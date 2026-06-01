@@ -1,9 +1,10 @@
 # Hands the signed-in user's API token back to a desktop / mobile client via
 # a custom URL scheme. Flow:
 #   1. The macOS widget opens GET /connect?return_scheme=ike in the browser.
-#   2. If not signed in, we stash the URL and bounce through Google OAuth.
-#   3. We redirect back to ike://connected?token=…&email=…, which macOS
-#      routes to the app (registered in Info.plist).
+#   2. If not signed in, we bounce through /login (magic link) carrying this
+#      URL as return_to so we land back here after sign-in.
+#   3. We redirect to ike://connected?token=…&email=…, which macOS routes
+#      to the app (registered in Info.plist).
 class ConnectController < ApplicationController
   ALLOWED_SCHEMES = %w[ike].freeze
 
@@ -15,8 +16,7 @@ class ConnectController < ApplicationController
     end
 
     unless signed_in?
-      session[:return_to] = request.url
-      redirect_to login_path
+      redirect_to login_path(return_to: request.url)
       return
     end
 

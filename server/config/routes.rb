@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # --- Authentication -------------------------------------------------------
+  # --- Authentication (magic link) ------------------------------------------
   get "login" => "sessions#new", as: :login
+  post "login" => "sessions#deliver", as: :login_deliver
+  get "auth/verify" => "sessions#verify", as: :auth_verify
   delete "logout" => "sessions#destroy", as: :logout
-  match "/auth/:provider/callback" => "sessions#create", via: [:get, :post]
-  get "/auth/failure" => "sessions#failure"
+  if Rails.env.development?
+    # Dev-only instant sign-in for fast local testing. Disabled outside dev.
+    post "login/dev" => "sessions#dev_sign_in", as: :login_dev
+  end
 
   # --- Device connect (custom URL scheme handoff) ---------------------------
   get "connect" => "connect#show", as: :connect
