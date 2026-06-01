@@ -140,10 +140,10 @@ private struct ServerSection: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
-                    Button("Connect with Google…", action: onConnect)
+                    Button("Connect to server…", action: onConnect)
                         .controlSize(.small)
                 }
-                Text("Opens your browser to sign in. Your blocks will be pushed to the server and editable from the web.")
+                Text("Opens your browser to sign in with a magic link. Your blocks will be pushed to the server and editable from the web.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
