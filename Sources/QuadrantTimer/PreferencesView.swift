@@ -129,8 +129,8 @@ private struct ServerSection: View {
                         Text("Not synced yet")
                     }
                     Spacer()
-                    if blockSyncer.lastError != nil && !blockSyncer.isSyncing {
-                        Button("Retry", action: { blockSyncer.sync() })
+                    if blockSyncer.syncDidFail {
+                        Button("Retry sync") { blockSyncer.sync() }
                             .controlSize(.small)
                     }
                 }

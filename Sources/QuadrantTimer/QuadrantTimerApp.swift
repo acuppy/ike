@@ -304,18 +304,18 @@ struct MenuView: View {
 
     var body: some View {
         if coordinator.serverSettings.isConnected {
-            let syncFailed = coordinator.blockSyncer.lastError != nil
+            let syncDidFail = coordinator.blockSyncer.syncDidFail
             Button {
                 coordinator.showPreferences()
             } label: {
                 Label {
                     Text("Signed in as \(coordinator.serverSettings.connectedEmail ?? "")")
                 } icon: {
-                    Image(systemName: syncFailed ? "exclamationmark.circle.fill" : "checkmark.circle.fill")
-                        .foregroundStyle(syncFailed ? .orange : .green)
+                    Image(systemName: syncDidFail ? "exclamationmark.circle.fill" : "checkmark.circle.fill")
+                        .foregroundStyle(syncDidFail ? .orange : .green)
                 }
             }
-            if syncFailed {
+            if syncDidFail {
                 Button("Retry sync") {
                     coordinator.blockSyncer.sync()
                 }

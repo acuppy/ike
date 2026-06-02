@@ -24,6 +24,11 @@ final class BlockSyncer {
     var isSyncing: Bool = false
     var lastError: String?
 
+    // The last sync attempt failed and we're not currently retrying. Single
+    // source of truth so the menu and Preferences agree on when to surface the
+    // failed state (amber icon + retry affordance).
+    var syncDidFail: Bool { lastError != nil && !isSyncing }
+
     init(settings: ServerSettings, logger: BlockLogger = .shared) {
         self.settings = settings
         self.logger = logger
