@@ -10,7 +10,28 @@ struct PreferencesView: View {
     let onConnect: () -> Void
     let onDisconnect: () -> Void
 
+    // The window hugs its content but stops growing past this; beyond it the
+    // panel scrolls so the bottom stays reachable on short displays (the
+    // calendar list can otherwise push Server off-screen).
+    @State private var contentHeight: CGFloat?
+    private let maxBodyHeight: CGFloat = 580
+
     var body: some View {
+        ScrollView {
+            content
+                .background(GeometryReader { geo in
+                    Color.clear.preference(key: ContentHeightKey.self, value: geo.size.height)
+                })
+        }
+        .frame(width: 460, height: min(contentHeight ?? maxBodyHeight, maxBodyHeight))
+        .onPreferenceChange(ContentHeightKey.self) { height in
+            // Ignore the transient 0 the GeometryReader reports before the
+            // content lays out — clamping to it would collapse the window.
+            if height > 0 { contentHeight = height }
+        }
+    }
+
+    private var content: some View {
         VStack(alignment: .leading, spacing: 18) {
             // Launch at login — header removed; the toggle + helper text speak
             // for themselves.
@@ -83,6 +104,15 @@ struct PreferencesView: View {
         }
         .padding(20)
         .frame(width: 460)
+    }
+}
+
+// Reports the laid-out height of the Preferences content so the window can
+// clamp itself and scroll past the cap rather than growing off-screen.
+private struct ContentHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
 
