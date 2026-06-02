@@ -107,7 +107,7 @@ private struct ServerSection: View {
                 HStack {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(.green)
-                    Text("Connected as \(serverSettings.connectedEmail ?? "")")
+                    Text("Signed in as \(serverSettings.connectedEmail ?? "")")
                         .font(.caption)
                     Spacer()
                     Button("Disconnect", action: onDisconnect)
@@ -129,6 +129,10 @@ private struct ServerSection: View {
                         Text("Not synced yet")
                     }
                     Spacer()
+                    if blockSyncer.lastError != nil && !blockSyncer.isSyncing {
+                        Button("Retry", action: { blockSyncer.sync() })
+                            .controlSize(.small)
+                    }
                 }
                 .font(.caption)
                 .foregroundStyle(.secondary)

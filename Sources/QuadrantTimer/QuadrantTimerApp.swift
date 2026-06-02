@@ -303,6 +303,36 @@ struct MenuView: View {
     let coordinator: AppCoordinator
 
     var body: some View {
+        if coordinator.serverSettings.isConnected {
+            let syncFailed = coordinator.blockSyncer.lastError != nil
+            Button {
+                coordinator.showPreferences()
+            } label: {
+                Label {
+                    Text("Signed in as \(coordinator.serverSettings.connectedEmail ?? "")")
+                } icon: {
+                    Image(systemName: syncFailed ? "exclamationmark.circle.fill" : "checkmark.circle.fill")
+                        .foregroundStyle(syncFailed ? .orange : .green)
+                }
+            }
+            if syncFailed {
+                Button("Retry sync") {
+                    coordinator.blockSyncer.sync()
+                }
+            }
+        } else {
+            Button {
+                coordinator.openServerSignIn()
+            } label: {
+                Label {
+                    Text("Not connected")
+                } icon: {
+                    Image(systemName: "circle")
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        Divider()
         if coordinator.scheduleSettings.endDayUntil != nil {
             Button("Start day (resume schedule)") {
                 coordinator.startDayAgain()
