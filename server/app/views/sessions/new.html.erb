@@ -26,6 +26,11 @@
     No password — we'll email you a link that signs you in. The link expires in 15 minutes.
   </p>
 
+  <p class="text-sm text-gray-500 mt-6">
+    New to Ike?
+    <%= link_to "Create an account", signup_path(return_to: params[:return_to]), class: "text-emerald-600 hover:underline" %>
+  </p>
+
   <% if Rails.env.development? %>
     <div class="mt-8 pt-6 border-t border-gray-200">
       <p class="text-xs text-gray-400 mb-2">Development only</p>

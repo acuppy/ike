@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_27_202720) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_02_120000) do
   create_table "blocks", force: :cascade do |t|
     t.boolean "auto", default: false, null: false
     t.datetime "created_at", null: false
@@ -29,10 +29,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_27_202720) do
   create_table "users", force: :cascade do |t|
     t.string "api_token", null: false
     t.string "avatar_url"
+    t.datetime "confirmed_at"
     t.datetime "created_at", null: false
     t.string "email", null: false
     t.string "name"
     t.string "provider", null: false
+    t.datetime "terms_accepted_at"
     t.string "uid", null: false
     t.datetime "updated_at", null: false
     t.index ["api_token"], name: "index_users_on_api_token", unique: true

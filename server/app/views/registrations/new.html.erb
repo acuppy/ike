@@ -1,0 +1,50 @@
+<% content_for :title, "Create account · Ike" %>
+
+<div class="max-w-sm mx-auto mt-16 text-center">
+  <span class="inline-grid grid-cols-2 gap-0.5 w-12 h-12 mx-auto mb-6">
+    <span class="bg-amber-500 rounded-sm"></span><span class="bg-emerald-500 rounded-sm"></span>
+    <span class="bg-slate-400 rounded-sm"></span><span class="bg-rose-500 rounded-sm"></span>
+  </span>
+  <h1 class="text-2xl font-bold mb-1">Create your account</h1>
+  <p class="text-gray-500 mb-8">Your Eisenhower-quadrant time log.</p>
+
+  <%= form_with url: signup_create_path, method: :post, class: "space-y-3 text-left", local: true do |f| %>
+    <% if params[:return_to].present? %>
+      <%= hidden_field_tag :return_to, params[:return_to] %>
+    <% end %>
+    <%= f.text_field :name,
+          value: @name,
+          placeholder: "Your name",
+          autocomplete: "name",
+          autofocus: true,
+          class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-base shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500" %>
+    <%= f.email_field :email,
+          placeholder: "you@example.com",
+          autocomplete: "email",
+          required: true,
+          class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-base shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500" %>
+
+    <label class="flex items-start gap-2 text-sm text-gray-600 pt-1">
+      <%= check_box_tag :terms, "1", false,
+            required: true,
+            class: "mt-0.5 rounded border-gray-300 text-emerald-500 focus:ring-emerald-500" %>
+      <span>
+        I agree to the
+        <%= link_to "Terms", terms_path, target: "_blank", class: "text-emerald-600 hover:underline" %> and
+        <%= link_to "Privacy Policy", privacy_path, target: "_blank", class: "text-emerald-600 hover:underline" %>.
+      </span>
+    </label>
+
+    <%= f.submit "Create account",
+          class: "w-full rounded-lg bg-emerald-500 px-4 py-2.5 text-white font-medium shadow-sm hover:bg-emerald-600 cursor-pointer" %>
+  <% end %>
+
+  <p class="text-xs text-gray-400 mt-6">
+    No password — we'll email you a link to confirm your address and finish setting up.
+  </p>
+
+  <p class="text-sm text-gray-500 mt-6">
+    Already have an account?
+    <%= link_to "Sign in", login_path(return_to: params[:return_to]), class: "text-emerald-600 hover:underline" %>
+  </p>
+</div>

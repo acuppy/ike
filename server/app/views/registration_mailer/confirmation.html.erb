@@ -1,0 +1,18 @@
+<h2 style="margin:0 0 16px;font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:18px;">Confirm your email</h2>
+
+<p style="font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:14px;color:#374151;line-height:1.5;">
+  Welcome to Ike<%= ", #{@user.name}" if @user.name.present? %>! Confirm <strong><%= @user.email %></strong> to activate your account. This link expires in 24 hours and works once.
+</p>
+
+<p style="margin:24px 0;">
+  <%= link_to "Confirm my email", @confirm_url, style: "display:inline-block;padding:10px 18px;background:#10b981;color:#ffffff;text-decoration:none;border-radius:6px;font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;" %>
+</p>
+
+<p style="font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:12px;color:#9ca3af;line-height:1.5;">
+  If you didn't sign up for Ike, you can ignore this email — the account stays inactive until it's confirmed.
+</p>
+
+<p style="font-family:-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;font-size:12px;color:#9ca3af;line-height:1.5;word-break:break-all;">
+  Or copy and paste this URL:<br>
+  <%= @confirm_url %>
+</p>

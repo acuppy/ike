@@ -1,4 +1,4 @@
-<% content_for :title, "Check your inbox · Ike" %>
+<% content_for :title, "Confirm your email · Ike" %>
 
 <div class="max-w-sm mx-auto mt-16 text-center">
   <span class="inline-flex items-center justify-center w-12 h-12 mx-auto mb-6 rounded-full bg-emerald-50">
@@ -7,17 +7,16 @@
       <path d="M3 7l9 6 9-6"/>
     </svg>
   </span>
-  <h1 class="text-xl font-bold mb-2">Check your inbox</h1>
+  <h1 class="text-xl font-bold mb-2">Confirm your email</h1>
   <p class="text-gray-600 mb-1">
-    We sent an email to <strong><%= session[:pending_email] %></strong>.
+    We sent a confirmation link to <strong><%= session[:pending_email] %></strong>.
   </p>
   <p class="text-sm text-gray-500">
-    If you have an account, it's a sign-in link; if not, we'll help you create one.
-    Just follow the link inside.
+    Click the link in the email to activate your account. It expires in 24 hours.
   </p>
 
   <p class="text-xs text-gray-400 mt-8">
     Didn't get it? Check spam, or
-    <%= link_to "try a different address", login_path, class: "text-blue-600 hover:underline" %>.
+    <%= link_to "use a different address", signup_path, class: "text-emerald-600 hover:underline" %>.
   </p>
 </div>

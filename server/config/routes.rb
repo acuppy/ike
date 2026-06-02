@@ -6,6 +6,15 @@ Rails.application.routes.draw do
   post "login" => "sessions#deliver", as: :login_deliver
   get "auth/verify" => "sessions#verify", as: :auth_verify
   delete "logout" => "sessions#destroy", as: :logout
+
+  # --- Account creation (email confirmation) --------------------------------
+  get "signup" => "registrations#new", as: :signup
+  post "signup" => "registrations#create", as: :signup_create
+  get "confirm" => "registrations#confirm", as: :confirm_email
+
+  # --- Legal -----------------------------------------------------------------
+  get "terms" => "policies#terms", as: :terms
+  get "privacy" => "policies#privacy", as: :privacy
   if Rails.env.development?
     # Dev-only instant sign-in for fast local testing. Disabled outside dev.
     post "login/dev" => "sessions#dev_sign_in", as: :login_dev

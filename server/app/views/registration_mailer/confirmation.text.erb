@@ -1,0 +1,7 @@
+Confirm your email
+
+Welcome to Ike<%= ", #{@user.name}" if @user.name.present? %>! Confirm <%= @user.email %> to activate your account. This link expires in 24 hours and works once.
+
+<%= @confirm_url %>
+
+If you didn't sign up for Ike, ignore this email — the account stays inactive until it's confirmed.

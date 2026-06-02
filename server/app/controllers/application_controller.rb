@@ -22,4 +22,17 @@ class ApplicationController < ActionController::Base
 
     redirect_to login_path
   end
+
+  # Only honor a `return_to` value that points back to our own host — guards
+  # against an open-redirect. Shared by the sessions and registrations flows.
+  def safe_return_to(value)
+    return nil if value.blank?
+
+    parsed = URI.parse(value)
+    return nil unless parsed.host.nil? || (parsed.host == request.host && parsed.port == request.port)
+
+    value
+  rescue URI::InvalidURIError
+    nil
+  end
 end

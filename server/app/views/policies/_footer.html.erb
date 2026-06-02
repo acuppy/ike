@@ -1,0 +1,17 @@
+<div class="mt-12 pt-6 border-t border-gray-200 text-sm text-gray-500 space-y-2">
+  <p>
+    Questions? Email <%= mail_to "support@iketimer.com", "support@iketimer.com", class: "text-emerald-600 hover:underline" %>.
+  </p>
+  <p>
+    See also our
+    <% if current_page?(terms_path) %>
+      <%= link_to "Privacy Policy", privacy_path, class: "text-emerald-600 hover:underline" %>.
+    <% else %>
+      <%= link_to "Terms of Service", terms_path, class: "text-emerald-600 hover:underline" %>.
+    <% end %>
+  </p>
+  <p class="text-xs text-gray-400">
+    Adapted from <%= link_to "37signals' open-source policies", "https://github.com/basecamp/policies", class: "hover:underline" %>,
+    used under <%= link_to "CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/", class: "hover:underline" %>.
+  </p>
+</div>
