@@ -14,12 +14,12 @@ class Quadrant
   }.freeze
 
   # Outcome-focused palette (Tailwind Refined hues): Q2 (the target) emerald,
-  # Q4 (regret) rose, Q3 (interruption warning) amber, Q1 (firefighting —
-  # neutralized) slate. Mirrors the SwiftUI palette in LogView.swift.
+  # Q4 (regret) rose, Q1 (firefighting — the cost center) amber, Q3
+  # (interruption — low stakes) slate. Mirrors the SwiftUI palette in LogView.swift.
   COLORS = {
-    "q1" => "#94a3b8", # slate-400
+    "q1" => "#f59e0b", # amber-500
     "q2" => "#10b981", # emerald-500
-    "q3" => "#f59e0b", # amber-500
+    "q3" => "#94a3b8", # slate-400
     "q4" => "#f43f5e", # rose-500
     "break" => "#0ea5e9" # sky-500
   }.freeze
