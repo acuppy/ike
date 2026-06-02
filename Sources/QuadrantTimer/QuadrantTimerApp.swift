@@ -76,6 +76,15 @@ final class AppCoordinator {
     let serverSettings = ServerSettings()
     let blockSyncer: BlockSyncer
     let calendarStore = CalendarStore.shared
+    let presence = PresenceMonitor()
+
+    // Absences shorter than this (a quick screen lock, a glance away) are
+    // ignored — we just resume rather than logging an away block.
+    private static let minimumAwayInterval: TimeInterval = 60
+
+    // Wall-clock moment the user stepped away (sleep/lock). nil while present.
+    // A single value dedupes the lock+sleep / wake+unlock pairs.
+    private var awayStartedAt: Date?
 
     init() {
         scheduleMonitor = ScheduleMonitor(settings: scheduleSettings)
@@ -111,9 +120,12 @@ final class AppCoordinator {
         breakPrompt.onEnd = { [weak self] in
             self?.endBreak()
         }
+        presence.onAway = { [weak self] in self?.handleWentAway() }
+        presence.onReturn = { [weak self] in self?.handleReturned() }
 
         registerGlobalShortcuts()
         scheduleMonitor.start()
+        presence.start()
 
         if scheduleMonitor.isActive {
             timer.start()
@@ -274,6 +286,46 @@ final class AppCoordinator {
         logger.append(entry)
         logViewModel.reload()
         timer.resetBlock()
+    }
+
+    // The Mac slept or the screen locked. Freeze the timer and drop any open
+    // prompt so its countdown can't auto-log a stale block on wake; the away
+    // span gets reconciled in handleReturned.
+    private func handleWentAway() {
+        guard scheduleMonitor.isActive, !breakState.isActive, awayStartedAt == nil else { return }
+        awayStartedAt = Date()
+        prompt.dismiss()
+        timer.pause()
+    }
+
+    // Back from sleep/lock. If the absence was long enough, log the gap as one
+    // entry spanning the interrupted block so the timeline stays continuous —
+    // typed by the awayLogging preference — then start a fresh block.
+    private func handleReturned() {
+        guard let awayStart = awayStartedAt else { return }
+        awayStartedAt = nil
+
+        guard Date().timeIntervalSince(awayStart) >= Self.minimumAwayInterval else {
+            timer.resume() // brief lock — pick up where we left off
+            return
+        }
+        guard scheduleMonitor.isActive else {
+            timer.stop() // came back off the clock; nothing to log
+            return
+        }
+
+        logger.append(awayEntry(start: timer.blockStartedAt, end: Date()))
+        logViewModel.reload()
+        timer.resetBlock()
+    }
+
+    private func awayEntry(start: Date, end: Date) -> BlockEntry {
+        switch scheduleSettings.awayLogging {
+        case .continuation:
+            BlockEntry(start: start, end: end, quadrant: prompt.lastQuadrant ?? .q2, note: prompt.lastNote, auto: true)
+        case .breakTime:
+            BlockEntry(start: start, end: end, quadrant: .breakTime, note: "", auto: true)
+        }
     }
 
     private func continueBreak() {

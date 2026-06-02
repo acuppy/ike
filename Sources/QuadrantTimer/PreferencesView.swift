@@ -71,6 +71,29 @@ struct PreferencesView: View {
 
             Divider()
 
+            // When away — how to account for time while the Mac sleeps or locks.
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("When away (sleep or lock)")
+                    Spacer()
+                    Picker("", selection: Binding(
+                        get: { settings.awayLogging },
+                        set: { settings.awayLogging = $0; settings.save() }
+                    )) {
+                        ForEach(AwayLogging.allCases) { option in
+                            Text(option.label).tag(option)
+                        }
+                    }
+                    .labelsHidden()
+                    .frame(width: 200)
+                }
+                Text("If your Mac sleeps or locks mid-block, that time is logged this way so your day stays gap-free.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Divider()
+
             // Working Hours — a small section label since multiple day rows
             // sit below. Body weight + semibold to match the visual rhythm
             // of the inline control labels elsewhere on this screen.

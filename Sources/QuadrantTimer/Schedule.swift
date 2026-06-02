@@ -22,6 +22,23 @@ enum Weekday: Int, CaseIterable, Identifiable {
     }
 }
 
+// How to account for time that passes while the Mac is asleep or locked
+// mid-block. Continuation treats it as more of whatever you were last doing;
+// break treats it as time off.
+enum AwayLogging: String, Codable, CaseIterable, Identifiable {
+    case continuation
+    case breakTime
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .continuation: "Continue last activity"
+        case .breakTime: "Log as break"
+        }
+    }
+}
+
 struct DaySchedule: Codable, Equatable {
     var enabled: Bool
     var startMinutes: Int
@@ -46,6 +63,7 @@ final class ScheduleSettings {
     var endDayUntil: Date?
 
     var blockDurationMinutes: Int = 15
+    var awayLogging: AwayLogging = .continuation
 
     private let storageKey = "QuadrantTimer.schedule.v1"
 
@@ -57,7 +75,8 @@ final class ScheduleSettings {
         let snapshot = Snapshot(
             monday: monday, tuesday: tuesday, wednesday: wednesday, thursday: thursday,
             friday: friday, saturday: saturday, sunday: sunday,
-            blockDurationMinutes: blockDurationMinutes
+            blockDurationMinutes: blockDurationMinutes,
+            awayLogging: awayLogging
         )
         if let data = try? JSONEncoder().encode(snapshot) {
             UserDefaults.standard.set(data, forKey: storageKey)
@@ -75,6 +94,7 @@ final class ScheduleSettings {
         saturday = snap.saturday
         sunday = snap.sunday
         blockDurationMinutes = snap.blockDurationMinutes ?? 15
+        awayLogging = snap.awayLogging ?? .continuation
     }
 
     func schedule(for weekday: Weekday) -> DaySchedule {
@@ -137,5 +157,6 @@ final class ScheduleSettings {
         var saturday: DaySchedule
         var sunday: DaySchedule
         var blockDurationMinutes: Int?
+        var awayLogging: AwayLogging?
     }
 }

@@ -59,6 +59,15 @@ final class PromptController {
         self.panel = panel
     }
 
+    // Tear down an open prompt without logging anything. Used when the user
+    // steps away (sleep/lock): the away handler will account for that span
+    // instead, and tearing the panel down cancels its auto-log countdown so
+    // it can't fire a stale block on wake.
+    func dismiss() {
+        panel?.orderOut(nil)
+        panel = nil
+    }
+
     private func resolve(quadrant: Quadrant, note: String, auto: Bool, start: Date, end: Date) {
         guard panel != nil else { return }
         panel?.orderOut(nil)

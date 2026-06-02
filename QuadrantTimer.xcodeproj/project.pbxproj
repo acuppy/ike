@@ -27,6 +27,7 @@
 		BAEED18F73279C4370197162 /* LogWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2835903680E6E77D8030F7AC /* LogWindowController.swift */; };
 		BE14F5CA80FE76A466E98403 /* WeeklyWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C30DED5E76D060D3B04EABD /* WeeklyWindowController.swift */; };
 		C02AF90FEFA4B1AB86D96EE1 /* PromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461648B3931DF610212A08C4 /* PromptController.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* PresenceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D3C4B5A69788796A5B4 /* PresenceMonitor.swift */; };
 		C772772D5F1F386799A5D1E2 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78627D5E37281D92D4882A9E /* PreferencesView.swift */; };
 		C96BEF53890EA1591ACB9861 /* BreakPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */; };
 		E064B096F16C94AA8B3E832C /* BreakState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693487742313D3CE3F02060 /* BreakState.swift */; };
@@ -46,6 +47,7 @@
 		430AF2E0F1A7BB93155140C5 /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		4577E3807549970C95AFE1E5 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		461648B3931DF610212A08C4 /* PromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptController.swift; sourceTree = "<group>"; };
+		0F1E2D3C4B5A69788796A5B4 /* PresenceMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenceMonitor.swift; sourceTree = "<group>"; };
 		47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		4DE896DC4731CF7D0698BB62 /* PromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptView.swift; sourceTree = "<group>"; };
 		4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantTimerApp.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				78627D5E37281D92D4882A9E /* PreferencesView.swift */,
 				47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */,
 				461648B3931DF610212A08C4 /* PromptController.swift */,
+				0F1E2D3C4B5A69788796A5B4 /* PresenceMonitor.swift */,
 				4DE896DC4731CF7D0698BB62 /* PromptView.swift */,
 				AAFD3B7AA79275B90E8788BE /* Quadrant.swift */,
 				4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */,
@@ -226,6 +229,7 @@
 				C772772D5F1F386799A5D1E2 /* PreferencesView.swift in Sources */,
 				4179ABD4949DB9CC1173EB85 /* PreferencesWindowController.swift in Sources */,
 				C02AF90FEFA4B1AB86D96EE1 /* PromptController.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* PresenceMonitor.swift in Sources */,
 				B3CF62D1211787DFD5DB055D /* PromptView.swift in Sources */,
 				936B6480FEF50F3A3D5F2325 /* Quadrant.swift in Sources */,
 				EDDB2B76AD7EC669ED2C7843 /* QuadrantTimerApp.swift in Sources */,
