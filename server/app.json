@@ -1,0 +1,82 @@
+{
+  "name": "Ike",
+  "description": "Ike — Eisenhower-quadrant time log. Rails JSON API + web dashboard backing the macOS widget.",
+  "repository": "https://github.com/acuppy/ike",
+  "keywords": ["rails", "time-tracking", "eisenhower"],
+  "stack": "heroku-24",
+  "buildpacks": [
+    { "url": "heroku/ruby" }
+  ],
+  "env": {
+    "RAILS_MASTER_KEY": {
+      "description": "Decrypts config/credentials.yml.enc and provides secret_key_base. Inherited from the pipeline's parent app for review apps.",
+      "required": true
+    },
+    "APP_HOST": {
+      "description": "Host for magic-link URLs and host authorization. Leave unset on review apps — they fall back to HEROKU_APP_NAME.",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Populated automatically for review apps; used as the magic-link host when APP_HOST is unset.",
+      "required": false
+    },
+    "SOLID_QUEUE_IN_PUMA": {
+      "description": "Run the Solid Queue worker inside the web dyno (single-dyno setup).",
+      "value": "true"
+    },
+    "MAIL_FROM": {
+      "description": "Default From address for outgoing mail.",
+      "value": "Ike <no-reply@iketimer.com>"
+    },
+    "SMTP_ADDRESS": {
+      "description": "SMTP host (any provider). Required for magic-link email to actually send.",
+      "required": false
+    },
+    "SMTP_PORT": {
+      "description": "SMTP port.",
+      "value": "587"
+    },
+    "SMTP_USERNAME": {
+      "description": "SMTP username / API token.",
+      "required": false
+    },
+    "SMTP_PASSWORD": {
+      "description": "SMTP password / API token secret.",
+      "required": false
+    },
+    "SMTP_AUTHENTICATION": {
+      "description": "SMTP authentication scheme.",
+      "value": "plain"
+    },
+    "RAILS_LOG_LEVEL": {
+      "description": "Log verbosity (debug, info, warn, …).",
+      "value": "info"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    "heroku-postgresql:essential-0",
+    "papertrail:choklad"
+  ],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test": "bundle exec rails test"
+      }
+    },
+    "review": {
+      "addons": [
+        "heroku-postgresql:essential-0",
+        "papertrail:choklad"
+      ],
+      "env": {
+        "RAILS_LOG_LEVEL": { "value": "debug" }
+      }
+    }
+  }
+}

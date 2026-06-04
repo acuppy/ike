@@ -50,15 +50,28 @@ Rails.application.configure do
   config.cache_store = :solid_cache_store
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
+  # Solid Queue lives in the primary database (single-database setup), so no
+  # connects_to override — it uses the default connection.
   config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue } }
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
-
-  # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  # Email — SMTP driven entirely by env vars so it works with any provider
+  # (Postmark, Resend, SendGrid, Mailgun, …). Set these as Heroku config vars.
+  # APP_HOST wins; review apps fall back to their dynamic HEROKU_APP_NAME so
+  # magic-link URLs point at the right place.
+  app_host = ENV["APP_HOST"].presence ||
+             (ENV["HEROKU_APP_NAME"].present? ? "#{ENV['HEROKU_APP_NAME']}.herokuapp.com" : "ike-timer-prod.herokuapp.com")
+  config.action_mailer.default_url_options = { host: app_host, protocol: "https" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings = {
+    address: ENV["SMTP_ADDRESS"],
+    port: ENV.fetch("SMTP_PORT", 587).to_i,
+    user_name: ENV["SMTP_USERNAME"],
+    password: ENV["SMTP_PASSWORD"],
+    authentication: ENV.fetch("SMTP_AUTHENTICATION", "plain").to_sym,
+    enable_starttls_auto: true
+  }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -79,12 +92,11 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [ :id ]
 
-  # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  #
+  # Enable DNS rebinding protection. Allow the Heroku app domain (incl. review
+  # apps) and the custom domain once APP_HOST is set (e.g. iketimer.com).
+  config.hosts = [/.*\.herokuapp\.com/]
+  config.hosts << ENV["APP_HOST"] if ENV["APP_HOST"].present?
+
   # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
