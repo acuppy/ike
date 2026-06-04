@@ -77,10 +77,7 @@ final class AppCoordinator {
     let blockSyncer: BlockSyncer
     let calendarStore = CalendarStore.shared
     let presence = PresenceMonitor()
-
-    // Absences shorter than this (a quick screen lock, a glance away) are
-    // ignored — we just resume rather than logging an away block.
-    private static let minimumAwayInterval: TimeInterval = 60
+    private let awayReconciler = AwayReconciler()
 
     // Wall-clock moment the user stepped away (sleep/lock). nil while present.
     // A single value dedupes the lock+sleep / wake+unlock pairs.
@@ -305,26 +302,25 @@ final class AppCoordinator {
         guard let awayStart = awayStartedAt else { return }
         awayStartedAt = nil
 
-        guard Date().timeIntervalSince(awayStart) >= Self.minimumAwayInterval else {
+        let outcome = awayReconciler.reconcile(
+            awayStart: awayStart,
+            returnedAt: Date(),
+            blockStart: timer.blockStartedAt,
+            scheduleActive: scheduleMonitor.isActive,
+            logging: scheduleSettings.awayLogging,
+            lastQuadrant: prompt.lastQuadrant,
+            lastNote: prompt.lastNote
+        )
+
+        switch outcome {
+        case .resume:
             timer.resume() // brief lock — pick up where we left off
-            return
-        }
-        guard scheduleMonitor.isActive else {
+        case .stop:
             timer.stop() // came back off the clock; nothing to log
-            return
-        }
-
-        logger.append(awayEntry(start: timer.blockStartedAt, end: Date()))
-        logViewModel.reload()
-        timer.resetBlock()
-    }
-
-    private func awayEntry(start: Date, end: Date) -> BlockEntry {
-        switch scheduleSettings.awayLogging {
-        case .continuation:
-            BlockEntry(start: start, end: end, quadrant: prompt.lastQuadrant ?? .q2, note: prompt.lastNote, auto: true)
-        case .breakTime:
-            BlockEntry(start: start, end: end, quadrant: .breakTime, note: "", auto: true)
+        case .fill(let entry):
+            logger.append(entry)
+            logViewModel.reload()
+            timer.resetBlock()
         }
     }
 

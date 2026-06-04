@@ -28,6 +28,7 @@
 		BE14F5CA80FE76A466E98403 /* WeeklyWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C30DED5E76D060D3B04EABD /* WeeklyWindowController.swift */; };
 		C02AF90FEFA4B1AB86D96EE1 /* PromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461648B3931DF610212A08C4 /* PromptController.swift */; };
 		A1B2C3D4E5F60718293A4B5C /* PresenceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D3C4B5A69788796A5B4 /* PresenceMonitor.swift */; };
+		B2C3D4E5F6071829A4B5C6D7 /* AwayReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E3D4C5B6A798897A6B5C4 /* AwayReconciler.swift */; };
 		C772772D5F1F386799A5D1E2 /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78627D5E37281D92D4882A9E /* PreferencesView.swift */; };
 		C96BEF53890EA1591ACB9861 /* BreakPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542EAA3CCAFF7A127BFCEF5A /* BreakPromptController.swift */; };
 		E064B096F16C94AA8B3E832C /* BreakState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6693487742313D3CE3F02060 /* BreakState.swift */; };
@@ -35,6 +36,12 @@
 		EDDB2B76AD7EC669ED2C7843 /* QuadrantTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */; };
 		F4108D476B01E590D4B6E928 /* ServerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677A6653AFD2D8E2F35E5CD8 /* ServerSettings.swift */; };
 		FEB79F91381F84D90B780115 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = AD1D57274241DB43E84AA8F5 /* KeyboardShortcuts */; };
+		AA1000000000000000000B01 /* AwayReconcilerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000A07 /* AwayReconcilerTests.swift */; };
+		AA1000000000000000000B02 /* ScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000A08 /* ScheduleTests.swift */; };
+		AA1000000000000000000B03 /* AwayReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2E3D4C5B6A798897A6B5C4 /* AwayReconciler.swift */; };
+		AA1000000000000000000B04 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */; };
+		AA1000000000000000000B05 /* Quadrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFD3B7AA79275B90E8788BE /* Quadrant.swift */; };
+		AA1000000000000000000B06 /* BlockLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +55,7 @@
 		4577E3807549970C95AFE1E5 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
 		461648B3931DF610212A08C4 /* PromptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptController.swift; sourceTree = "<group>"; };
 		0F1E2D3C4B5A69788796A5B4 /* PresenceMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenceMonitor.swift; sourceTree = "<group>"; };
+		1F2E3D4C5B6A798897A6B5C4 /* AwayReconciler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwayReconciler.swift; sourceTree = "<group>"; };
 		47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		4DE896DC4731CF7D0698BB62 /* PromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptView.swift; sourceTree = "<group>"; };
 		4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadrantTimerApp.swift; sourceTree = "<group>"; };
@@ -66,6 +74,9 @@
 		D88539B26D3B1FD16B5CF05E /* BlockLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLogger.swift; sourceTree = "<group>"; };
 		F33D1EB75C58A7B2DEF012CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAC8B488E1ACC7945C73B1A0 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		AA1000000000000000000A02 /* QuadrantTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuadrantTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA1000000000000000000A07 /* AwayReconcilerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwayReconcilerTests.swift; sourceTree = "<group>"; };
+		AA1000000000000000000A08 /* ScheduleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,14 +95,25 @@
 			isa = PBXGroup;
 			children = (
 				A03E98ED8CC90501561B94D9 /* QuadrantTimer.app */,
+				AA1000000000000000000A02 /* QuadrantTimerTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AA1000000000000000000A09 /* QuadrantTimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000A07 /* AwayReconcilerTests.swift */,
+				AA1000000000000000000A08 /* ScheduleTests.swift */,
+			);
+			path = Tests/QuadrantTimerTests;
 			sourceTree = "<group>";
 		};
 		96868572215D65E08C722C97 = {
 			isa = PBXGroup;
 			children = (
 				E8B94C638ECD4692C881AB33 /* Sources */,
+				AA1000000000000000000A09 /* QuadrantTimerTests */,
 				0EBA847D032D658AC0CC8EBC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,6 +146,7 @@
 				47545113B358402B9A6AE3F6 /* PreferencesWindowController.swift */,
 				461648B3931DF610212A08C4 /* PromptController.swift */,
 				0F1E2D3C4B5A69788796A5B4 /* PresenceMonitor.swift */,
+				1F2E3D4C5B6A798897A6B5C4 /* AwayReconciler.swift */,
 				4DE896DC4731CF7D0698BB62 /* PromptView.swift */,
 				AAFD3B7AA79275B90E8788BE /* Quadrant.swift */,
 				4EE6FED8E12452B5349EBE97 /* QuadrantTimerApp.swift */,
@@ -161,6 +184,21 @@
 			productReference = A03E98ED8CC90501561B94D9 /* QuadrantTimer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AA1000000000000000000A01 /* QuadrantTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA1000000000000000000A04 /* Build configuration list for PBXNativeTarget "QuadrantTimerTests" */;
+			buildPhases = (
+				AA1000000000000000000A03 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuadrantTimerTests;
+			productName = QuadrantTimerTests;
+			productReference = AA1000000000000000000A02 /* QuadrantTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -172,6 +210,10 @@
 				TargetAttributes = {
 					04474E0F3EC608F246EFDF9F = {
 						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					AA1000000000000000000A01 = {
+						CreatedOnToolsVersion = 16.0;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -194,6 +236,7 @@
 			projectRoot = "";
 			targets = (
 				04474E0F3EC608F246EFDF9F /* QuadrantTimer */,
+				AA1000000000000000000A01 /* QuadrantTimerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -230,6 +273,7 @@
 				4179ABD4949DB9CC1173EB85 /* PreferencesWindowController.swift in Sources */,
 				C02AF90FEFA4B1AB86D96EE1 /* PromptController.swift in Sources */,
 				A1B2C3D4E5F60718293A4B5C /* PresenceMonitor.swift in Sources */,
+				B2C3D4E5F6071829A4B5C6D7 /* AwayReconciler.swift in Sources */,
 				B3CF62D1211787DFD5DB055D /* PromptView.swift in Sources */,
 				936B6480FEF50F3A3D5F2325 /* Quadrant.swift in Sources */,
 				EDDB2B76AD7EC669ED2C7843 /* QuadrantTimerApp.swift in Sources */,
@@ -240,6 +284,19 @@
 				A6E7C321C6B92AA4FC116BD7 /* TimerEngine.swift in Sources */,
 				7FEB978D88ED51DA4A551FF5 /* WeeklyView.swift in Sources */,
 				BE14F5CA80FE76A466E98403 /* WeeklyWindowController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA1000000000000000000A03 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA1000000000000000000B01 /* AwayReconcilerTests.swift in Sources */,
+				AA1000000000000000000B02 /* ScheduleTests.swift in Sources */,
+				AA1000000000000000000B03 /* AwayReconciler.swift in Sources */,
+				AA1000000000000000000B04 /* Schedule.swift in Sources */,
+				AA1000000000000000000B05 /* Quadrant.swift in Sources */,
+				AA1000000000000000000B06 /* BlockLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +470,40 @@
 			};
 			name = Debug;
 		};
+		AA1000000000000000000A05 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adamcuppy.QuadrantTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		AA1000000000000000000A06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adamcuppy.QuadrantTimerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -430,6 +521,15 @@
 			buildConfigurations = (
 				98BD83A425FFD3E8DDEBC0C0 /* Debug */,
 				564CCEEE380CFC122FFF2C3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AA1000000000000000000A04 /* Build configuration list for PBXNativeTarget "QuadrantTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA1000000000000000000A05 /* Debug */,
+				AA1000000000000000000A06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

@@ -7,7 +7,7 @@ extension Notification.Name {
     static let blockLoggerDidChange = Notification.Name("BlockLoggerDidChange")
 }
 
-struct BlockEntry: Codable {
+struct BlockEntry: Codable, Equatable {
     let start: Date
     let end: Date
     let quadrant: Quadrant
