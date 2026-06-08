@@ -40,7 +40,6 @@ struct PromptView: View {
             let suggested = suggestedNote(for: selected)
             note = suggested
             lastAutoFilled = suggested
-            noteFocused = true
         }
         .onChange(of: selected) { _, newSelected in
             // Only swap the suggested note if the user hasn't typed anything

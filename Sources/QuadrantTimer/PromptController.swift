@@ -49,11 +49,10 @@ final class PromptController {
         panel.isFloatingPanel = true
         panel.level = .floating
         panel.hidesOnDeactivate = false
-        panel.becomesKeyOnlyIfNeeded = false
+        panel.becomesKeyOnlyIfNeeded = true
         panel.isReleasedWhenClosed = false
 
-        NSApp.activate(ignoringOtherApps: true)
-        panel.makeKeyAndOrderFront(nil)
+        panel.orderFrontRegardless()
         panel.center()
 
         self.panel = panel
